@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide de produit PAYFACTO</title>
+<style>
+  :root { --blue:#1a3a5c; --blue-light:#2563a8; --section-bg:#1a3a5c; --border:#d1d5db; --font:'Segoe UI',Arial,sans-serif; --row-hover:#f0f7ff; --tab-bg:#f3f4f6; --header-bg:#1a3a5c; --header-color:#fff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font); font-size:13px; background:#f8fafc; color:#1a1a2e; }
+  header { background:var(--blue); color:#fff; padding:16px 28px; display:flex; align-items:center; gap:16px; box-shadow:0 2px 8px rgba(0,0,0,.18); }
+  header h1 { font-size:20px; font-weight:700; letter-spacing:.5px; }
+  header .subtitle { font-size:12px; opacity:.75; margin-top:2px; }
+  .logo { width:40px; height:40px; background:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .search-bar { background:#fff; border-bottom:1px solid var(--border); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+  .search-bar input { flex:1; max-width:440px; padding:8px 14px; border:1.5px solid var(--border); border-radius:8px; font-size:13px; outline:none; transition:border-color .2s,box-shadow .2s; }
+  .search-bar input:focus { border-color:var(--blue-light); box-shadow:0 0 0 3px rgba(37,99,168,.12); }
+  .search-hint { font-size:11.5px; color:#aaa; }
+  .btn-clear { display:none; background:#e5e7eb; border:none; border-radius:6px; padding:6px 12px; font-size:12px; cursor:pointer; color:#444; font-family:var(--font); }
+  .btn-clear:hover { background:#d1d5db; }
+  .btn-clear.visible { display:inline-block; }
+  .tab-nav-wrapper { background:var(--tab-bg); border-bottom:2px solid var(--blue); overflow-x:auto; white-space:nowrap; padding:0 8px; position:sticky; top:0; z-index:100; }
+  .tab-nav-wrapper::-webkit-scrollbar { height:4px; }
+  .tab-nav-wrapper::-webkit-scrollbar-thumb { background:#c1c7d0; border-radius:2px; }
+  .tab-btn { display:inline-block; padding:9px 14px; font-size:11.5px; font-weight:500; background:none; border:none; border-bottom:3px solid transparent; cursor:pointer; color:#444; transition:all .15s; white-space:nowrap; font-family:var(--font); }
+  .tab-btn:hover { color:var(--blue); background:#e8f0fe; }
+  .tab-btn.active { color:var(--blue); border-bottom-color:var(--blue-light); font-weight:700; background:#fff; }
+  .content-wrapper { padding:20px 24px; max-width:1400px; margin:0 auto; }
+  .tab-content { display:none; }
+  .sheet-title { font-size:17px; font-weight:700; color:var(--blue); margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid var(--blue); text-transform:uppercase; }
+  table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 1px 6px rgba(0,0,0,.07); }
+  thead tr { background:var(--header-bg); color:var(--header-color); }
+  thead th { padding:10px 14px; text-align:left; font-size:12px; font-weight:600; letter-spacing:.4px; border-right:1px solid rgba(255,255,255,.12); white-space:nowrap; }
+  thead th:last-child { border-right:none; }
+  tbody tr { border-bottom:1px solid #eee; transition:background .1s; }
+  tbody tr:hover { background:var(--row-hover); }
+  tbody tr:last-child { border-bottom:none; }
+  td { padding:8px 14px; vertical-align:top; border-right:1px solid #f0f0f0; line-height:1.5; }
+  td:last-child { border-right:none; }
+  .col-desc { min-width:250px; }
+  .col-prod { min-width:155px; font-family:monospace; font-size:12px; color:#2563a8; white-space:nowrap; }
+  .col-notes { min-width:200px; color:#555; font-style:italic; font-size:12px; }
+  .col-extra { min-width:80px; text-align:right; }
+  .section-header td { background:var(--section-bg); color:#fff; font-weight:700; font-size:12px; letter-spacing:.6px; text-transform:uppercase; padding:7px 14px; }
+  .bold-row td:first-child { font-weight:600; color:var(--blue); }
+  tr.bold-row:not(.section-header) { background:#f0f7ff; }
+  tr.bold-row:not(.section-header):hover { background:#dbeafe; }
+  .link { color:var(--blue-light); text-decoration:none; font-size:12px; }
+  .link:hover { text-decoration:underline; }
+  .modal-overlay { display:none; position:fixed; inset:0; z-index:1000; background:rgba(10,20,40,.55); backdrop-filter:blur(3px); }
+  .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; padding-top:60px; animation:fadeIn .15s ease; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .modal { background:#fff; border-radius:14px; width:92%; max-width:900px; max-height:78vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.25); animation:slideUp .18s ease; overflow:hidden; }
+  @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+  .modal-header { padding:16px 20px 12px; border-bottom:1px solid #eee; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+  .modal-header h2 { font-size:15px; font-weight:700; color:var(--blue); }
+  .result-count { font-size:12px; color:#fff; background:var(--blue-light); border-radius:12px; padding:2px 10px; font-weight:600; }
+  .result-count.none { background:#e5e7eb; color:#888; }
+  .btn-close-modal { background:#f3f4f6; border:none; border-radius:8px; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#555; }
+  .btn-close-modal:hover { background:#e5e7eb; }
+  .modal-filters { padding:10px 20px; background:#f8fafc; border-bottom:1px solid #eee; display:flex; gap:8px; flex-wrap:wrap; flex-shrink:0; }
+  .filter-chip { padding:4px 12px; border-radius:20px; border:1.5px solid #d1d5db; background:#fff; font-size:11.5px; cursor:pointer; color:#555; font-family:var(--font); white-space:nowrap; transition:all .12s; }
+  .filter-chip:hover { border-color:var(--blue-light); color:var(--blue); }
+  .filter-chip.active { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:600; }
+  .modal-body { overflow-y:auto; flex:1; }
+  .modal-body::-webkit-scrollbar { width:6px; }
+  .modal-body::-webkit-scrollbar-thumb { background:#c1c7d0; border-radius:3px; }
+  .result-group-title { padding:8px 20px 6px; font-size:11px; font-weight:700; color:#fff; background:var(--blue); letter-spacing:.8px; text-transform:uppercase; position:sticky; top:0; z-index:1; }
+  .result-row { display:grid; grid-template-columns:2.2fr 1.3fr 2fr; padding:10px 20px; border-bottom:1px solid #f0f0f0; transition:background .1s; }
+  .result-row:hover { background:#f0f7ff; }
+  .result-row:last-child { border-bottom:none; }
+  .res-desc { font-size:13px; font-weight:500; color:#1a1a2e; padding-right:12px; }
+  .res-prod { font-family:monospace; font-size:12px; color:var(--blue-light); font-weight:600; align-self:center; padding-right:12px; }
+  .res-notes { font-size:12px; color:#666; font-style:italic; align-self:center; }
+  .btn-goto { display:inline-block; font-size:11px; color:var(--blue-light); background:none; border:none; cursor:pointer; text-decoration:underline; font-family:var(--font); padding:0; margin-top:2px; }
+  mark { background:#fde68a; padding:0 1px; border-radius:2px; font-style:normal; }
+  .no-results { padding:48px 20px; text-align:center; color:#9ca3af; font-size:14px; }
+  .no-results .icon { font-size:36px; display:block; margin-bottom:10px; }
+  .modal-footer { padding:10px 20px; border-top:1px solid #eee; flex-shrink:0; font-size:11.5px; color:#888; background:#f8fafc; }
+  @media(max-width:768px) { header{padding:12px 16px} .content-wrapper{padding:12px 10px} .tab-btn{padding:8px 10px;font-size:11px} .result-row{grid-template-columns:1fr;gap:3px} .modal-overlay{padding-top:20px} .modal{max-height:88vh} }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">📋</div>
+  <div><h1>Guide de Produit PAYFACTO</h1><div class="subtitle">15-02-2026 &nbsp;·&nbsp; 19 onglets</div></div>
+</header>
+<div class="search-bar">
+  <span style="font-size:16px;color:#888">🔍</span>
+  <input type="text" id="searchInput" placeholder="Rechercher un produit, # produit, notes… (tous les onglets)" oninput="handleSearch(this.value)">
+  <button class="btn-clear" id="btnClear" onclick="clearSearch()">✕ Effacer</button>
+  <span class="search-hint">Tapez 2 caractères ou plus pour lancer la recherche</span>
+</div>
+<div class="tab-nav-wrapper">
+<button class="tab-btn active" onclick="showTab('tab_EQUIPEMENTS')" id="btn_tab_EQUIPEMENTS">ÉQUIPEMENTS</button>
+<button class="tab-btn " onclick="showTab('tab_SAAS_VELOCE')" id="btn_tab_SAAS_VELOCE">SAAS-VELOCE</button>
+<button class="tab-btn " onclick="showTab('tab_SAAS_MAITRE_D')" id="btn_tab_SAAS_MAITRE_D">SAAS-MAITRE'D</button>
+<button class="tab-btn " onclick="showTab('tab_SAAS_VIRTUO')" id="btn_tab_SAAS_VIRTUO">SAAS-VIRTUO</button>
+<button class="tab-btn " onclick="showTab('tab_OLD_SAAS_MD_VELOCE')" id="btn_tab_OLD_SAAS_MD_VELOCE">OLD SAAS MD-VELOCE</button>
+<button class="tab-btn " onclick="showTab('tab_MAIN_D_OEUVRE')" id="btn_tab_MAIN_D_OEUVRE">MAIN D'OEUVRE</button>
+<button class="tab-btn " onclick="showTab('tab_SALES_ADMIN')" id="btn_tab_SALES_ADMIN">SALES ADMIN</button>
+<button class="tab-btn " onclick="showTab('tab_FOURNITURES')" id="btn_tab_FOURNITURES">FOURNITURES</button>
+<button class="tab-btn " onclick="showTab('tab_KDS_VELOCE')" id="btn_tab_KDS_VELOCE">KDS VELOCE</button>
+<button class="tab-btn " onclick="showTab('tab_KDS_MD')" id="btn_tab_KDS_MD">KDS MD</button>
+<button class="tab-btn " onclick="showTab('tab_TABLETTE')" id="btn_tab_TABLETTE">TABLETTE</button>
+<button class="tab-btn " onclick="showTab('tab_VELMIX_FARO')" id="btn_tab_VELMIX_FARO">VELMIX-FARO</button>
+<button class="tab-btn " onclick="showTab('tab_BORNE')" id="btn_tab_BORNE">BORNE</button>
+<button class="tab-btn " onclick="showTab('tab_ST_HUBERT')" id="btn_tab_ST_HUBERT">ST-HUBERT</button>
+<button class="tab-btn " onclick="showTab('tab_BENNY_2')" id="btn_tab_BENNY_2">BENNY 2</button>
+<button class="tab-btn " onclick="showTab('tab_MTY_SAT__2__')" id="btn_tab_MTY_SAT__2__">MTY SAT (2)</button>
+<button class="tab-btn " onclick="showTab('tab_ADAPTIVE_NETWORK')" id="btn_tab_ADAPTIVE_NETWORK">ADAPTIVE NETWORK</button>
+<button class="tab-btn " onclick="showTab('tab_UNIFI')" id="btn_tab_UNIFI">UNIFI</button>
+<button class="tab-btn " onclick="showTab('tab_PAGETTE')" id="btn_tab_PAGETTE">PAGETTE</button>
+
+</div>
+<div class="content-wrapper">
+<div class="tab-content" id="tab_EQUIPEMENTS" style="display:block">
+<div class="sheet-title">ÉQUIPEMENTS</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th><th class="col-extra">FICHE TECHNIQUE PRODUIT</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="4">KIT SERVEUR DE BUREAU</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT SERVEUR RAZOR ELKHART LAKE 16GB 256GB</td><td class="col-prod">KIT-TOU-RAZ-RPCC620</td><td class="col-notes">N'INCLUS PAS CLAVIER/SOURIS ET CLÉ USB  VELOCE SEULEMENT OU  PC ADMIN</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT SERVEUR RAZOR I3 8GB 256GB</td><td class="col-prod">KIT-TOU-RAZ-RPCG820</td><td class="col-notes">Serveur MD MAX 3 POS N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT SERVEUR RAZOR 16GB 500GB</td><td class="col-prod">KIT-TOU-RAZ-RPC3650</td><td class="col-notes">Serveur MD + plus de 4 pos N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">MINI SERVEUR HP PRODESK</td><td class="col-prod">KIT-SLI-HPK-MINIPRODESK</td><td class="col-notes">N'INCLUS PAS CLAVIER/SOURIS PRODUIT REFURBISH, GARANTI 60 JOURS</td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">KIT SERVEUR/POS POUR VELOCE, MAITRE'D</td></tr>
+<tr class="bold-row" style="background-color:#FFFF0020;"><td class="col-desc">SERVEUR/POS AIO TD PULSE</td><td class="col-prod">KIT-AIO-TOU-PULSESER</td><td class="col-notes">SER/POS POUR MD (1POS) OU VELOCE N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2024/03/TD_Pulse-Ultra-WS_Spec.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">MASTER AIO TD RAZOR I3 8GB 500GB</td><td class="col-prod">KIT-AIO-SER-RAZOR_SMS</td><td class="col-notes">SER/POS POUR MAITRE'D MAX 2 POS N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">MASTER AIO TD RAZOR I3 16GB 500GB</td><td class="col-prod">KIT-AIO-SER-RAZOR_AIOI3</td><td class="col-notes">SER/POS POUR  MAITRE'D 3 POS ET PLUS N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">MASTER AIO TOSHIBA TCX810 8B</td><td class="col-prod">KIT-AIO-SER-TOSHTCX810</td><td class="col-notes">SER/POS POUR MAITRE'D MAX 2 POS N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">MASTER AIO TOSHIBA TCX810 16B</td><td class="col-prod">KIT-AIO-SER-TOSHTCX810_16GB</td><td class="col-notes">SER/POS POUR  MAITRE'D 3 POS ET PLUS N'INCLUS PAS CLAVIER/SOURIS</td><td class="col-extra"><a href="https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="section-header"><td colspan="4">ACCESSOIRES POUR SERVEUR DE BUREAU</td></tr>
+<tr><td class="col-desc">MICROSOFT OFFICE</td><td class="col-prod">LOG-LIC-MIC-OFFICE</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ECRAN VIEWSONIC  22'' LED FULL HD</td><td class="col-prod">ACC-ECR-VWS-VA2246MH</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">KIT CLAVIER SOURIS FRANÇAIS</td><td class="col-prod">ACC-CLA-MIC-C+S_FR</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">KIT CLAVIER SOURIS ANGLAIS</td><td class="col-prod">ACC-CLA-MIC-C+S_AN</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SWITCH 8 PORTS</td><td class="col-prod">ACC-HUB-TPL-SG1008</td><td class="col-notes">SELON LE NOMBRE DE PERIPHERIQUE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SWITCH 16 PORTS</td><td class="col-prod">ACC-HUB-TPL-SG1016</td><td class="col-notes">SELON LE NOMBRE DE PERIPHERIQUE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SWITCH 24 PORTS</td><td class="col-prod">ACC-HUB-TPL-SG1024</td><td class="col-notes">SELON LE NOMBRE DE PERIPHERIQUE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SWITCH 48 PORTS</td><td class="col-prod">ACC-HUB-NET-48P_NET</td><td class="col-notes">SELON LE NOMBRE DE PERIPHERIQUE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BATTERIE UPS TRIPP LITE 750</td><td class="col-prod">ACC-BAT-TRP-750VAUSB</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">KIT POS TD NEXUS ET FUSION</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH DYNAMIC NEXUS NX1560</td><td class="col-prod">KIT-AIO-TOU-NX1560</td><td class="col-notes"></td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2024/07/TD_156Nexus_AIO_Android_SpecSheet5.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH DYNAMIC FUSION</td><td class="col-prod">POS-MOB-TOU-FUSION</td><td class="col-notes">POS/TABLETTE</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2024/09/TD_FusionHybrid_SpecSheet5.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">LECTEUR DE CARTE NEXUS</td><td class="col-prod">ACC-LEC-TOU-MSRNEXUS</td><td class="col-notes">NEXUS</td><td class="col-extra"></td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">ECRAN CLIENT 11.6'' NEXUS</td><td class="col-prod">ACC-AFF-TOU-NX11DISP</td><td class="col-notes">NEXUS</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">AFFICHEUR 2X20 PULSE</td><td class="col-prod">ACC-AFF-TOU-ULTRA</td><td class="col-notes">TD PULSE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">LECTEUR DE CARTE ACROBAT</td><td class="col-prod">ACC-LEC-TOU-ACROBAT</td><td class="col-notes">J1900 ET J6412</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">AFFICHEUR 2X20 ACROBAT</td><td class="col-prod">ACC-AFF-TOU-ACROBAT</td><td class="col-notes">J1900 ET J6412</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ECRAN CLIENT 11.6''</td><td class="col-prod">ACC-AFF-TOU-RZ11,6_AR</td><td class="col-notes">J6412 SEULEMENT</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ECRAN CLIENT 8''</td><td class="col-prod">ACC-ECR-TOU-ECR8</td><td class="col-notes">J1900 ET I3 SEULEMENT</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">DONGLE WIFI TD</td><td class="col-prod">REP-CAR-TOU-WIFI_RAZ</td><td class="col-notes">PULSE, RAZOR ET AUTRES PRODUITS TOUCH DYNAMIC</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SUPPORT MURAL ARTICULÉ</td><td class="col-prod">ACC-BRK-PEE-SAL724</td><td class="col-notes">POUR POS</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BATTERIE 550V USB</td><td class="col-prod">ACC-BAT-TRP-550VAUSB</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">TIROIR CAISSE APG VASARIO</td><td class="col-prod">KIT-TIR-APG-BL1616</td><td class="col-notes">COMPREND CABLE</td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">POS TD RAZOR</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH DYNAMIC RAZOR CELERON</td><td class="col-prod">KIT-AIO-TOU-RAZOR_AIOC</td><td class="col-notes">COMPRENDS CABLE, BATT</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH DYNAMIC RAZOR I3</td><td class="col-prod">KIT-AIO-TOU-RAZOR_AIOI3</td><td class="col-notes">COMPRENDS CABLE, BATT</td><td class="col-extra"><a href="https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr><td class="col-desc">KIT POUR BRACKET MURAL RAZOR</td><td class="col-prod">REP-BRK-TOU-TD_RAZOR</td><td class="col-notes">SEULEMENT LE PANEL BESOIN D'UN WALL MOUNT</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">USB A SÉRIE POUR RAZOR</td><td class="col-prod">WIR-CAB-POS-USBTODB9</td><td class="col-notes">NECESSAIRE POUR UNE 3IEME PORT COM</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">LECTEUR DE CARTE RAZOR</td><td class="col-prod">ACC-LEC-TOU-MSRRAZOR</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">SCANNER 2D POUR RAZOR</td><td class="col-prod">ACC-SCA-TOU-RAZOR</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">AFFICHEUR 2X20</td><td class="col-prod">ACC-AFF-TOU-RZ2X20</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ÉCRAN CLIENT 11.6''</td><td class="col-prod">ACC-AFF-TOU-RZ11,6</td><td class="col-notes">VIENS AVEC LE BRACKET ET CABLE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ÉCRAN CLIENT 15.6''</td><td class="col-prod">ACC-AFF-TOU-RZ15,6</td><td class="col-notes">VIENS AVEC LE BRACKET ET CABLE</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BATTERIE 550V USB</td><td class="col-prod">ACC-BAT-TRP-550VAUSB</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">TIROIR CAISSE APG VASARIO</td><td class="col-prod">KIT-TIR-APG-BL1616</td><td class="col-notes">COMPREND CABLE</td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">KIT POS TOSHIBA TCX810</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH TOSHIBA TCX810</td><td class="col-prod">KIT-AIO-TOS-TCX810E6C</td><td class="col-notes">TOU-NX</td><td class="col-extra"><a href="https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr><td class="col-desc">LECTEUR DE CARTE TOSHIBA</td><td class="col-prod">ACC-LEC-TOS-TOSHIBA</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">ÉCRAN CLIENT 10.1''</td><td class="col-prod">ACC-AFF-TOS-TOS10,1</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BRACKET POUR ÉCRAN CLIENT</td><td class="col-prod">ACC-BRK-TOS-FC1006</td><td class="col-notes">OBLIGATOIRE AVEC L'ÉCRAN CLIENT 10.1</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">AFFICHEUR 2X20</td><td class="col-prod">ACC-AFF-TOS-TOSHIBA</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">ACCESSOIRES POS</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT PAPIER ET ENCREUR STAR</td><td class="col-prod">KIT-PAP-BSP-PAPERCSTAR</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT PAPIER ET ENCREUR EPSON</td><td class="col-prod">KIT-PAP-BSP-PAPERC</td><td class="col-notes">OBLIGATOIRE DANS VOS SOUMISSION NOUVEAU CLIENT</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT MEV</td><td class="col-prod">KIT-MEV-IBM-MEV2</td><td class="col-notes">COMPRENDS CABLE DB9</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">CLAVIER MEV</td><td class="col-prod">ACC-CLA-IBM-CLAMEV</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc"></td><td class="col-prod">IMPRIMANTE CUISINE</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE TMU220 RÉSEAU</td><td class="col-prod">KIT-IMP-EPS-TMU220BE</td><td class="col-notes">COMPREND COMPOSANTES</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE STAR 742B RÉSEAU</td><td class="col-prod">KIT-IMP-STA-SP742B</td><td class="col-notes">COMPREND COMPOSANTES</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc"></td><td class="col-prod">IMPRIMANTE FACTURE</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE CITIZEN S751 SÉRIE</td><td class="col-prod">KIT-IMP-CTZ-S751</td><td class="col-notes">COMPREND COMPOSANTES</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE CITIZEN CTS-751 RÉSEAU</td><td class="col-prod">KIT-IMP-CTZ-CTS751_RESEAU</td><td class="col-notes">IMPRIMANTE FACTURE RÉSEAU (PRÉVOIR SWITCH OU PRISE RÉSEAU)</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE CITIZEN CTS-351 SÉRIE</td><td class="col-prod">KIT-IMP-CTZ-E351</td><td class="col-notes">IMPRIMANTE FACTURE SÉRIE 377$</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">INTERFACE RÉSEAU CTZ S751</td><td class="col-prod">REP-CAR-CTZ-RES_CT-S751</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">INTERFACE RÉSEAU EPSON</td><td class="col-prod">REP-CAR-EPS-RESEAU</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">LECTEUR BIOMETRIQUE</td><td class="col-prod">ACC-LEC-BLU-URU4500B</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ÉCRAN TACTIL 15'' TD</td><td class="col-prod">ACC-ECR-TOU-PM1510</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row" style="background-color:#FF000020;"><td class="col-desc">IMPRIMANTE TM-88 SÉRIE</td><td class="col-prod">KIT-IMP-EPS-TM88VSE</td><td class="col-notes">NON DISPONIBLE</td><td class="col-extra"></td></tr>
+<tr class="section-header"><td colspan="4">SCANNER</td></tr>
+<tr class="bold-row"><td class="col-desc">SCANNER ZEBRA 2D POUR CODE BARRE ET CELL</td><td class="col-prod">ACC-LEC-ZEB-DS2208</td><td class="col-notes">POUR FREEBEES OU AUTRE CC OU FIDELISATION USB</td><td class="col-extra"><a href="https://www.zebra.com/fr/fr/products/spec-sheets/scanners/general-purpose-scanners/handheld/ds2200-series.html" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">SCANNER ZEBRA 2D MULTILIGNE</td><td class="col-prod">ACC-SCA-ZEB-DS9308U</td><td class="col-notes">POUR DÉPANNEUR (POUR LIRE CODE DE BALANCE/MULTI-LIGNE) USB</td><td class="col-extra"><a href="https://www.zebra.com/fr/fr/products/spec-sheets/scanners/general-purpose-scanners/ds9300-series.html" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="section-header"><td colspan="4">BALANCE</td></tr>
+<tr class="bold-row"><td class="col-desc">BALANCE AVERY BREKNELL 6710U 7.5KG</td><td class="col-prod">ACC-BAL-WEI-6710</td><td class="col-notes">INTÉGRATION POS COMPTOIR</td><td class="col-extra"><a href="https://www.brecknellscales.com/en/wp-content/uploads/sites/10/2022/11/6700USeries_RoW_L_100106.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">CABLE SÉRIE RS232 CBL</td><td class="col-prod">WIR-CAB-WEI-CABRS232</td><td class="col-notes">OBLIGATOIRE AVEC BALANCE</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">POLE DISPLAY</td><td class="col-prod">ACC-BAL-WEI-6710POL</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">BALANCE AVERY BREKNELL 6720 15KG</td><td class="col-prod">ACC-BAL-WEI-6720</td><td class="col-notes">INT. POS + UN REMOTE DISPLAY</td><td class="col-extra"><a href="https://www.brecknellscales.com/en/wp-content/uploads/sites/10/2022/11/6700USeries_RoW_L_100106.pdf" target="_blank" class="link">🔗 Fiche technique</a></td></tr>
+<tr class="bold-row"><td class="col-desc">POLE POUR REMOTE DISPLAY</td><td class="col-prod">ACC-BAL-WEI-POT6710</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">LOGICIEL SCALE LINK</td><td class="col-prod">LOG-LIC-ISH-SLP5</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI3 1 LIGNE BENCH</td><td class="col-prod">ACC-BAL-ISH-UNI3BL1</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI3 2 LIGNE BENCH 15KG</td><td class="col-prod">ACC-BAL-ISH-UNI3BL2_15</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI3 2 LIGNE BENCH 30KG</td><td class="col-prod">ACC-BAL-ISH-UNI3BL2</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI3 1 LIGNE POTEAU</td><td class="col-prod">ACC-BAL-ISH-UNI3PL1</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI3 2 LIGNE POTEAU</td><td class="col-prod">ACC-BAL-ISH-UNI3PL2</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI7 BENCH</td><td class="col-prod">ACC-BAL-ISH-UNI7PLAT</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI7 POTEAU</td><td class="col-prod">ACC-BAL-ISH-UNI7POT</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI5 BENCH</td><td class="col-prod">ACC-BAL-ISH-UNI5PLAT</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI5 POTEAU</td><td class="col-prod">ACC-BAL-ISH-UNI5POT</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">ISHIDA UNI5 EV1</td><td class="col-prod">ACC-BAL-ISH-UNI5EV1</td><td class="col-notes">SANS-FILS PAS INCLUS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">MAGELLAN 8400</td><td class="col-prod">ACC-BAL-MGL-MGL8400</td><td class="col-notes">BALANCE/SCANNER COMPTOIR 5FACE SCANNING</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">MAGELLAN 8500</td><td class="col-prod">ACC-BAL-MGL-MGL8500</td><td class="col-notes">BALANCE/SCANNER COMPTOIR 6FACE SCANNING</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">CERTIFICATION BALANCE 1</td><td class="col-prod">TEM-PRO-PMC-CERT1</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">CERTIFICATION BALANCE 2 ET +</td><td class="col-prod">TEM-PRO-PMC-CERT2</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">CERTIFICAT EXAMEN INSTRUMENT</td><td class="col-prod">TEM-PRO-PMC-CERTINST</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_SAAS_VELOCE" style="display:none">
+<div class="sheet-title">SAAS-VELOCE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header" style="background-color:#0070C020;"><td colspan="3">SAAS VELOCE</td></tr>
+<tr class="section-header" style="background-color:#00B0F020;"><td colspan="3">FORFAIT SAAS STANDARD</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE EXPRESS</td><td class="col-prod">LOG-LIC-VEL-EXPRESS</td><td class="col-notes">LICENCE SERVICE RAPIDE, 1 POS 69,95$/M</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE EXPRESS POS ADD-ON</td><td class="col-prod">LOG-MOD-VEL-POS_EXP</td><td class="col-notes">20$/M/POS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE CORE</td><td class="col-prod">LOG-LIC-VEL-CORE</td><td class="col-notes">99,95$/M, 1 POS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE CORE POS ADD-ON</td><td class="col-prod">LOG-MOD-VEL-POS_COR</td><td class="col-notes">30$/M/POS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE PRO</td><td class="col-prod">LOG-LIC-VEL-PRO</td><td class="col-notes">149,95$/M, 1 POS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE PRO POS ADD-ON</td><td class="col-prod">LOG-MOD-VEL-POS_PRO</td><td class="col-notes">35$/M/POS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE ENTREPRISE</td><td class="col-prod">LOG-LIC-VEL-ENTREPRISE</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE ENTREPRISE POS ADD-ON</td><td class="col-prod">LOG-MOD-VEL-POS_ENT</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE VELPAY</td><td class="col-prod">LOG-MOD-VEL-PAY_ADD</td><td class="col-notes">25$/M/VELPAY</td></tr>
+<tr class="section-header" style="background-color:#00B0F020;"><td colspan="3">SAAS VELMIX</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTERFACE BAR VELMIX ALCOOL</td><td class="col-prod">LOG-MOD-VEL-ALC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTERFACE BAR VELMIX LC BIERE EN FUT</td><td class="col-prod">LOG-MOD-VEL-BIERE_LC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTERFACE BAR VELMIX LM BIERE EN FUT</td><td class="col-prod">LOG-MOD-VEL-BIERE_LM</td><td class="col-notes">69$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">ADD-ON</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE MODULE VELCLOUD</td><td class="col-prod">LOG-MOD-VEL-VELCLOUD</td><td class="col-notes">30$/MOIS/RESTO  **50% D'ESCOMPTE AVEC PAY INCLUS AVEC PRO**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTEGRATION CARTE-CADEAU/FIDELITE</td><td class="col-prod">LOG-MOD-VEL-CCF_API</td><td class="col-notes">10$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE LOGICIEL KDS</td><td class="col-prod">LOG-MOD-VEL-CVM</td><td class="col-notes">20$/MOIS/KDS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4</td><td class="col-prod">LOG-MOD-VEL-GLOBAL</td><td class="col-notes">99$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+</td><td class="col-prod">LOG-MOD-VEL-GLOBAL5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4</td><td class="col-prod">LOG-MOD-VEL-MONERIS</td><td class="col-notes">99$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+</td><td class="col-prod">LOG-MOD-VEL-MONERIS5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE BORNE COMAMNDE (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-VEL-BORNE</td><td class="col-notes">75$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE ECOM ISHOP (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-VEL-CEL</td><td class="col-notes">99$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION INVENTAIRE TIERCE PARTIE</td><td class="col-prod">LOG-MOD-VEL-INVENT_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE MODULE INVENTAIRE</td><td class="col-prod">LOG-MOD-VEL-INVENTAIRE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTERFACE HOTEL/PMS</td><td class="col-prod">LOG-MOD-VEL-PMS150</td><td class="col-notes">150$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE MODULE COMPTE CLIENT ET PROMO</td><td class="col-prod">LOG-MOD-VEL-CCP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE MODULE D'AFFICHAGE CLIENT</td><td class="col-prod">LOG-MOD-VEL-CFD</td><td class="col-notes">10$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE MODULE COMPTABLE</td><td class="col-prod">LOG-MOD-VEL-COMP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE INTEGRATION PAIE</td><td class="col-prod">LOG-MOD-VEL-PAIE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION RESERVATION TIERCE PARTIE</td><td class="col-prod">LOG-MOD-VEL-RES_Api</td><td class="col-notes">15$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE INTEGRATION SADIE</td><td class="col-prod">LOG-MOD-VEL-SADIE_API</td><td class="col-notes">20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VELOCE INTEGRATION TALKSOON</td><td class="col-prod">LOG-MOD-VEL-TALKSOON_API</td><td class="col-notes">20$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE MODULE BILLETERIE</td><td class="col-prod">LOG-MOD-VEL-TICKET</td><td class="col-notes">20$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VELOCE INTEGRATION ECOM PAIEMENT</td><td class="col-prod">LOG-MOD-VEL-ECOM_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_SAAS_MAITRE_D" style="display:none">
+<div class="sheet-title">SAAS-MAITRE'D</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header" style="background-color:#FA762420;"><td colspan="3">SAAS MAITRE'D</td></tr>
+<tr class="section-header" style="background-color:#FC9E6420;"><td colspan="3">FORFAIT SAAS STANDARD</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE EXPRESS</td><td class="col-prod">LOG-LIC-CLA-EXPRESS</td><td class="col-notes">LICENCE SERVICE RAPIDE, 1 POS 69,95$/M</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE EXPRESS POS ADD-ON</td><td class="col-prod">LOG-MOD-CLA-POS_EXP</td><td class="col-notes">20$/M/POS</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE CORE</td><td class="col-prod">LOG-LIC-CLA-CORE</td><td class="col-notes">99,95$/M, 1 POS</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE CORE POS ADD-ON</td><td class="col-prod">LOG-MOD-CLA-POS_COR</td><td class="col-notes">30$/M/POS</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE PRO</td><td class="col-prod">LOG-LIC-CLA-PRO</td><td class="col-notes">149,95$/M, 1 POS</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE PRO POS ADD-ON</td><td class="col-prod">LOG-MOD-CLA-POS_PRO</td><td class="col-notes">35$/M/POS</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE ENTREPRISE</td><td class="col-prod">LOG-LIC-CLA-ENTREPRISE</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE ENTREPRISE POS ADD-ON</td><td class="col-prod">LOG-MOD-CLA-POS_ENT</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr class="section-header" style="background-color:#FC9E6420;"><td colspan="3">SAAS VELMIX</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE INTERFACE BAR VELMIX ALCOOL</td><td class="col-prod">LOG-MOD-CLA-ALC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE INTERFACE BAR VELMIX LC BIERE EN FUT</td><td class="col-prod">LOG-MOD-CLA-BIERE_LC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT</td></tr>
+<tr style="background-color:#FED3B820;"><td class="col-desc">MAITRE D CLASSIQUE INTERFACE BAR VELMIX LM BIERE EN FUT</td><td class="col-prod">LOG-MOD-CLA-BIERE_LM</td><td class="col-notes">69$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">ADD-ON</td></tr>
+<tr><td class="col-desc">MAITRE D CLASIQUE APPLICATION DATABOARD</td><td class="col-prod">LOG-MOD-CLA-DATABOARD</td><td class="col-notes">30$/MOIS/RESTO  **50% D'ESCOMPTE AVEC PAY INCLUS AVEC PRO**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE INTEGRATION CARTE-CADEAU/FIDELITE</td><td class="col-prod">LOG-MOD-CLA-CCF_API</td><td class="col-notes">10$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE LOGICIEL KDS</td><td class="col-prod">LOG-MOD-CLA-CVM</td><td class="col-notes">20$/MOIS/KDS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4</td><td class="col-prod">LOG-MOD-CLA-GLOBAL</td><td class="col-notes">99$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+</td><td class="col-prod">LOG-MOD-CLA-GLOBAL5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4</td><td class="col-prod">LOG-MOD-CLA-MONERIS</td><td class="col-notes">99$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+</td><td class="col-prod">LOG-MOD-CLA-MONERIS5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE BORNE COMAMNDE (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-CLA-BORNE</td><td class="col-notes">75$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE ECOM ISHOP (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-CLA-CEL</td><td class="col-notes">99$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION INVENTAIRE TIERCE PARTIE</td><td class="col-prod">LOG-MOD-CLA-INVENT_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE MODULE INVENTAIRE</td><td class="col-prod">LOG-MOD-CLA-INVENTAIRE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE INTERFACE HOTEL/PMS</td><td class="col-prod">LOG-MOD-CLA-PMS150</td><td class="col-notes">150$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE MODULE COMPTE CLIENT ET PROMO</td><td class="col-prod">LOG-MOD-CLA-CCP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE MODULE D'AFFICHAGE CLIENT</td><td class="col-prod">LOG-MOD-CLA-CFD</td><td class="col-notes">10$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE MODULE COMPTABLE</td><td class="col-prod">LOG-MOD-CLA-COMP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE INTEGRATION PAIE</td><td class="col-prod">LOG-MOD-CLA-PAIE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION RESERVATION TIERCE PARTIE</td><td class="col-prod">LOG-MOD-CLA-RES_Api</td><td class="col-notes">15$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE INTEGRATION SADIE</td><td class="col-prod">LOG-MOD-CLA-SADIE_API</td><td class="col-notes">20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D CLASSIQUE INTEGRATION TALKSOON</td><td class="col-prod">LOG-MOD-CLA-TALKSOON_API</td><td class="col-notes">20$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D CLASSIQUE INTEGRATION ECOM PAIEMENT</td><td class="col-prod">LOG-MOD-CLA-ECOM_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_SAAS_VIRTUO" style="display:none">
+<div class="sheet-title">SAAS-VIRTUO</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header" style="background-color:#AD178620;"><td colspan="3">SAAS VIRTUO</td></tr>
+<tr class="section-header" style="background-color:#F193D820;"><td colspan="3">FORFAIT SAAS STANDARD</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO EXPRESS</td><td class="col-prod">LOG-LIC-VIR-EXPRESS</td><td class="col-notes">LICENCE SERVICE RAPIDE, 1 POS 69,95$/M</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO EXPRESS POS ADD-ON</td><td class="col-prod">LOG-MOD-VIR-POS_EXP</td><td class="col-notes">20$/M/POS</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO CORE</td><td class="col-prod">LOG-LIC-VIR-CORE</td><td class="col-notes">99,95$/M, 1 POS</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO CORE POS ADD-ON</td><td class="col-prod">LOG-MOD-VIR-POS_COR</td><td class="col-notes">30$/M/POS</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO PRO</td><td class="col-prod">LOG-LIC-VIR-PRO</td><td class="col-notes">149,95$/M, 1 POS</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO PRO POS ADD-ON</td><td class="col-prod">LOG-MOD-VIR-POS_PRO</td><td class="col-notes">35$/M/POS</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO ENTREPRISE</td><td class="col-prod">LOG-LIC-VIR-ENTREPRISE</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO ENTREPRISE POS ADD-ON</td><td class="col-prod">LOG-MOD-VIR-POS_ENT</td><td class="col-notes">SUR DEMANDE</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO VELPAY</td><td class="col-prod">LOG-MOD-VEL-PAY_ADD</td><td class="col-notes">25$/M/VELPAY</td></tr>
+<tr class="section-header" style="background-color:#F193D820;"><td colspan="3">SAAS FARO</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO INTERFACE BAR VELMIX ALCOOL</td><td class="col-prod">LOG-MOD-VIR-ALC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO INTERFACE BAR VELMIX LC BIERE EN FUT</td><td class="col-prod">LOG-MOD-VIR-BIERE_LC</td><td class="col-notes">99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr style="background-color:#FAD6F120;"><td class="col-desc">MAITRE D VIRTUO INTERFACE BAR VELMIX LM BIERE EN FUT</td><td class="col-prod">LOG-MOD-VIR-BIERE_LM</td><td class="col-notes">69$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">ADD-ON</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO INTEGRATION CARTE-CADEAU/FIDELITE</td><td class="col-prod">LOG-MOD-VIR-CCF_API</td><td class="col-notes">10$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO LOGICIEL KDS</td><td class="col-prod">LOG-MOD-VIR-CVM</td><td class="col-notes">20$/MOIS/KDS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4</td><td class="col-prod">LOG-MOD-VIR-GLOBAL</td><td class="col-notes">99$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+</td><td class="col-prod">LOG-MOD-VIR-GLOBAL5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4</td><td class="col-prod">LOG-MOD-VIR-MONERIS</td><td class="col-notes">99$/MOIS</td></tr>
+<tr><td class="col-desc">INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+</td><td class="col-prod">LOG-MOD-VIR-MONERIS5</td><td class="col-notes">149$/MOIS</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO BORNE COMAMNDE (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-VIR-BORNE</td><td class="col-notes">75$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO ECOM ISHOP (ISHOPFOOD)</td><td class="col-prod">LOG-MOD-VIR-CEL</td><td class="col-notes">99$/MOIS  **25% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION INVENTAIRE TIERCE PARTIE</td><td class="col-prod">LOG-MOD-VIR-INVENT_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO MODULE INVENTAIRE</td><td class="col-prod">LOG-MOD-VIR-INVENTAIRE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO INTERFACE HOTEL/PMS</td><td class="col-prod">LOG-MOD-VIR-PMS150</td><td class="col-notes">150$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO MODULE COMPTE CLIENT ET PROMO</td><td class="col-prod">LOG-MOD-VIR-CCP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO MODULE D'AFFICHAGE CLIENT</td><td class="col-prod">LOG-MOD-VIR-CFD</td><td class="col-notes">10$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO MODULE COMPTABLE</td><td class="col-prod">LOG-MOD-VIR-COMP</td><td class="col-notes">25$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO INTEGRATION PAIE</td><td class="col-prod">LOG-MOD-VIR-PAIE</td><td class="col-notes">50$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">INTEGRATION RESERVATION TIERCE PARTIE</td><td class="col-prod">LOG-MOD-VIR-RES_Api</td><td class="col-notes">15$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO INTEGRATION SADIE</td><td class="col-prod">LOG-MOD-VIR-SADIE_API</td><td class="col-notes">20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">MAITRE D VIRTUO INTEGRATION TALKSOON</td><td class="col-prod">LOG-MOD-VIR-TALKSOON_API</td><td class="col-notes">20$/MOIS  **50% D'ESCOMPTE AVEC PAY**</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO SUITE BUREAU CHEF</td><td class="col-prod">LOG-MOD-VIR-HO_SUITE</td><td class="col-notes">30$/MOIS/RESTO</td></tr>
+<tr><td class="col-desc">MAITRE D VIRTUO INTEGRATION ECOM PAIEMENT</td><td class="col-prod">LOG-MOD-VIR-ECOM_API</td><td class="col-notes">20$/MOIS  **20% D'ESCOMPTE AVEC PAY**</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_OLD_SAAS_MD_VELOCE" style="display:none">
+<div class="sheet-title">OLD SAAS MD-VELOCE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">MD SAAS : LES FORFAITS</td></tr>
+<tr class="section-header" style="background-color:#FF000020;"><td colspan="3">FORFAIT SAAS STANDARD</td></tr>
+<tr><td class="col-desc">FORFAIT 1 POS</td><td class="col-prod">KIT-MOD-PSR-SOLO_PP2</td><td class="col-notes">149$</td></tr>
+<tr><td class="col-desc">FORFAIT 2-4 POS</td><td class="col-prod">KIT-MOD-PSR-FOR2-4</td><td class="col-notes">249$</td></tr>
+<tr><td class="col-desc">FORFAIT 5-10 POS</td><td class="col-prod">KIT-MOD-PSR-FOR5-10</td><td class="col-notes">299$</td></tr>
+<tr><td class="col-desc">FORFAIT 11-20 POS</td><td class="col-prod">KIT-MOD-PSR-FOR11-20</td><td class="col-notes">399$</td></tr>
+<tr><td class="col-desc">FORFAIT 20 +</td><td class="col-prod"></td><td class="col-notes">PRIX SUR DEMANDE</td></tr>
+<tr><td class="col-desc">LOGICIEL POS UNITAIRE</td><td class="col-prod">LOG-MOD-PSR-SAT1_8V7</td><td class="col-notes"></td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">ACCES AUX DONÉES SERVEUR MAITRE'D</td><td class="col-prod">NEO-MOD-MD-NOPOS</td><td class="col-notes">45$/MOIS</td></tr>
+<tr class="section-header" style="background-color:#FF000020;"><td colspan="3">FORFAIT SAAS/PAIEMENT  BUNDLE</td></tr>
+<tr><td class="col-desc">FORFAIT PAY/POS À L'UTILISATION</td><td class="col-prod">KIT-MOD-PSR-BUNFREE</td><td class="col-notes">0$ POS 2.69% + 0.12$</td></tr>
+<tr><td class="col-desc">FORFAIT ESSENTIELS PAY/POS 1-4</td><td class="col-prod">KIT-MOD-PSR-BUNLITE</td><td class="col-notes">99$ POS 2.39% + 0.10$</td></tr>
+<tr><td class="col-desc">FORFAIT PLUS PAY/POS 5-10</td><td class="col-prod">KIT-MOD-PSR-BUNPLUS</td><td class="col-notes">199$ POS 2.29% + 0.08$</td></tr>
+<tr><td class="col-desc">FORFAIT ENTREPRISE PAY/POS 11+</td><td class="col-prod">KIT-MOD-PSR-BUNGROWTH</td><td class="col-notes">299$ POS 2.19% + 0.07$</td></tr>
+<tr><td class="col-desc">FORFAIT MULTI-SITE</td><td class="col-prod">KIT-MOD-PSR-MULTISITES</td><td class="col-notes">IL FAUT AJOUTER LES LOG-MOD-PSR-SAT1_8V7</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">BUNDLE EN AJOUT</td></tr>
+<tr><td class="col-desc">INTÉGRATION CARTE CADEAU/FIDELITÉ FREEBEES</td><td class="col-prod">LOG-MOD-PSR-CCFFREEBEES</td><td class="col-notes">0$/MOIS</td></tr>
+<tr><td class="col-desc">INTÉGRATION CARTE CADEAU/FIDELITÉ</td><td class="col-prod">LOG-MOD-PSR-CCF_AP</td><td class="col-notes">29$/MOIS</td></tr>
+<tr><td class="col-desc">INTERFACE HOTEL/PMS</td><td class="col-prod">LOG-MOD-PSR-PMS</td><td class="col-notes">75$/MOIS</td></tr>
+<tr><td class="col-desc">KDS ILLIMITÉ</td><td class="col-prod">LOG-MOD-PSR-KDS</td><td class="col-notes">75$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">COMMANDE EN LIGNE PAYFACTO</td><td class="col-prod">LOG-MOD-PSR-CELPAYF</td><td class="col-notes">99$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">BORNE DE COMMANDE PAYFACTO</td><td class="col-prod">LOG-MOD-PSR-BORNEPAYF</td><td class="col-notes">75$/MOIS</td></tr>
+<tr><td class="col-desc">INTÉGRATION DE PAIEMENT MONERIS</td><td class="col-prod">LOG-MOD-PSR-PAYMON</td><td class="col-notes">MONERIS 99$/M</td></tr>
+<tr><td class="col-desc">INTÉGRATION DE PAIEMENT GLOBAL PAYMENT</td><td class="col-prod">LOG-MOD-PSR-PAYTP</td><td class="col-notes">GLOBAL 99$/M</td></tr>
+<tr class="section-header"><td colspan="3">VELOCE SAAS : LES FORFAITS</td></tr>
+<tr class="section-header" style="background-color:#FF000020;"><td colspan="3">FORFAIT SAAS  STANDARD</td></tr>
+<tr><td class="col-desc">FORFAIT 1 POS</td><td class="col-prod">KIT-MOD-VEL-SOLO_PP2</td><td class="col-notes">149$</td></tr>
+<tr><td class="col-desc">FORFAIT 2-4 POS</td><td class="col-prod">KIT-MOD-VEL-FOR2-4</td><td class="col-notes">249$</td></tr>
+<tr><td class="col-desc">FORFAIT 5-10 POS</td><td class="col-prod">KIT-MOD-VEL-FOR5-10</td><td class="col-notes">299$</td></tr>
+<tr><td class="col-desc">FORFAIT 11-20 POS</td><td class="col-prod">KIT-MOD-VEL-FOR11-20</td><td class="col-notes">399$</td></tr>
+<tr><td class="col-desc">FORFAIT 20 +</td><td class="col-prod">KIT-MOD-VEL-FOR20+</td><td class="col-notes">PRIX SUR DEMANDE</td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">LICENCE VELPAY</td><td class="col-prod">LOG-MOD-VEL-INTPAY</td><td class="col-notes">0$/MOIS</td></tr>
+<tr><td class="col-desc">ACCES AUX DONÉES SERVEUR VELOCE</td><td class="col-prod">NEO-MOD-VEL-NOPOS</td><td class="col-notes">45$/MOIS</td></tr>
+<tr class="section-header" style="background-color:#FF000020;"><td colspan="3">FORFAIT SAAS/PAIEMENT  BUNDLE</td></tr>
+<tr><td class="col-desc">FORFAIT PAY/POS ILLIMITÉ</td><td class="col-prod">KIT-MOD-VEL-BUNFREE</td><td class="col-notes">0$ POS 2.69% + 0.12$</td></tr>
+<tr><td class="col-desc">FORFAIT LITE PAY/POS 1-4</td><td class="col-prod">KIT-MOD-VEL-BUNLITE</td><td class="col-notes">99$ POS 2.39% + 0.10$</td></tr>
+<tr><td class="col-desc">FORFAIT PLUS PAY/POS 5-10</td><td class="col-prod">KIT-MOD-VEL-BUNPLUS</td><td class="col-notes">199$ POS 2.29% + 0.08$</td></tr>
+<tr><td class="col-desc">FORFAIT GROWTH PAY/POS 11+</td><td class="col-prod">KIT-MOD-VEL-BUNGROWTH</td><td class="col-notes">299$ POS 2.19% + 0.07$</td></tr>
+<tr><td class="col-desc">FORFAIT SUR MESURE (MULTI-SITES)</td><td class="col-prod">KIT-MOD-VEL-MULTISITES</td><td class="col-notes">IL FAUT AJOUTER LES POS LOG-MOD-VEL-SATEL</td></tr>
+<tr><td class="col-desc"></td><td class="col-prod">LOG-MOD-VEL-SATEL</td><td class="col-notes"></td></tr>
+<tr class="section-header" style="background-color:#92D05020;"><td colspan="3">BUNDLE EN AJOUT</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">INTÉGRATION CARTE CADEAU/FIDELITÉ FREEBEES</td><td class="col-prod">LOG-MOD-VEL-CCFFREEBEES</td><td class="col-notes">0$/MOIS</td></tr>
+<tr><td class="col-desc">INTÉGRATION CARTE CADEAU/FIDELITÉ</td><td class="col-prod">LOG-MOD-VEL-CCF_AP</td><td class="col-notes">29$/MOIS</td></tr>
+<tr><td class="col-desc">INERTFACE HOTEL/PMS</td><td class="col-prod">LOG-MOD-VEL-PMS</td><td class="col-notes">75$/MOIS</td></tr>
+<tr><td class="col-desc">KDS ILLIMITÉ</td><td class="col-prod">LOG-MOD-VEL-KDS</td><td class="col-notes">75$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">COMMANDE EN LIGNE PAYFACTO</td><td class="col-prod">LOG-MOD-VEL-CELPAYF</td><td class="col-notes">99$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">BORNE DE COMMANDE PAYFACTO</td><td class="col-prod">LOG-MOD-VEL-BORNEPAYF</td><td class="col-notes">75$/MOIS</td></tr>
+<tr style="background-color:#DDEBF720;"><td class="col-desc">ACCÈS API VELOCE</td><td class="col-prod">LOG-MOD-VEL-API</td><td class="col-notes">19$/MOIS</td></tr>
+<tr><td class="col-desc">INTÉGRATION DE PAIEMENT MONERIS</td><td class="col-prod">LOG-MOD-VEL-PAYMON</td><td class="col-notes">MONERIS 99$/M</td></tr>
+<tr><td class="col-desc">INTÉGRATION DE PAIEMENT GLOBAL PAYMENT</td><td class="col-prod">LOG-MOD-VEL-PAYTP</td><td class="col-notes">GLOBAL 99$/M</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_MAIN_D_OEUVRE" style="display:none">
+<div class="sheet-title">MAIN D'ŒUVRE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRES POS FIXE</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION SERVEUR</td><td class="col-prod">TEM-PRE-NEO-IC/SER</td><td class="col-notes">230$ n'inclus pas le déplacement</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION SER-POS</td><td class="col-prod">TEM-PRE-NEO-IC/SERPOS</td><td class="col-notes">230$ n'inclus pas le déplacement</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION POS</td><td class="col-prod">TEM-PRE-NEO-IC/POS</td><td class="col-notes">130$ n'inclus pas le déplacement</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION BORNE</td><td class="col-prod">TEM-PRE-NEO-IC/BORNE</td><td class="col-notes">230$ n'inclus pas le déplacement</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION TABLETTE</td><td class="col-prod">TEM-PRE-NEO-IC/TABLETTE</td><td class="col-notes">60$ n'inclus pas le déplacement</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION IMPRIMANTE</td><td class="col-prod">TEM-PRE-NEO-IC/IMP</td><td class="col-notes">60$ n'inclus pas le déplacement</td></tr>
+<tr class="bold-row"><td class="col-desc">PRÉPARATION DU SITE ET CONFIGURATION MEVWEB</td><td class="col-prod">TEM-PRE-NEO-MEVWEB</td><td class="col-notes">120$ fixe n'inclut pas le déplacement</td></tr>
+<tr><td class="col-desc">FRAIS DE DÉPLACEMENT</td><td class="col-prod">TEM-DEP-POS-DEPLACE</td><td class="col-notes">METTRE LE MONTANT SELON LE TEMPS GOOGLE MAP</td></tr>
+<tr class="bold-row"><td class="col-desc">FRAIS D'HERBERGEMENT</td><td class="col-prod">TEM-CNT-POS-HEB_REP</td><td class="col-notes">METTRE LE MONTANT SELON LE CALCUL DU GUIDE DE PRODUIT</td></tr>
+<tr><td class="col-desc">FRAIS BILLET D'AVION</td><td class="col-prod">TEM-CNT-POS-AVION</td><td class="col-notes">METTRE LE MONTANT SELON LE PRIX DU BILLET D'AVION</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRE FIXE</td></tr>
+<tr><td class="col-desc">PROGRAMMATION DE MENU</td><td class="col-prod">TEM-PRO-NEO-PROGMENU</td><td class="col-notes">MENU STANDARD</td></tr>
+<tr><td class="col-desc">PROGRAMMATION DE MENU DEJ OU PIZZ</td><td class="col-prod">TEM-PRO-NEO-MENUPIZ</td><td class="col-notes">MENU DÉJEUNER/PIZZA OU TRÈS GROS MENU</td></tr>
+<tr><td class="col-desc">COPIE DE MENU</td><td class="col-prod">TEM-PRO-NEO-COPIEMENU</td><td class="col-notes">OBLIGATOIRE</td></tr>
+<tr><td class="col-desc">FORMATION DE BASE STANDARD</td><td class="col-prod">TEM-FOR-NEO-FOR_4H</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">INTÉGRATION/CONFIGURATION PAIEMENT PAYFACTO</td><td class="col-prod">TEM-PRE-NEO-IC/PAY</td><td class="col-notes">METTRE DANS TOUT LES SOUMISSIONS QUAND ON INTEGRE LE PAY</td></tr>
+<tr><td class="col-desc">PAX A35</td><td class="col-prod">TER-TPV-PAX-P_A35</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">PAX A80</td><td class="col-prod">TER-TPV-PAX-P_A80</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">PAX A920 PRO</td><td class="col-prod">TER-TPV-PAX-P_A920PRO</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">PAX IM30</td><td class="col-prod">TER-TPV-PAX-P_IM30</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">SUPPORT AUX OPÉRATIONS JOUR SEMAINE</td><td class="col-prod">TEM-LIV-NEO-LIVE</td><td class="col-notes">LUNDI AU VENDREDI DE JOUR</td></tr>
+<tr><td class="col-desc">SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI</td><td class="col-prod">TEM-LIV-NEO-LIVE_SSEM</td><td class="col-notes">SOIR DU LUNDI AU JEUDI</td></tr>
+<tr><td class="col-desc">SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND</td><td class="col-prod">TEM-LIV-NEO-LIVE_WE</td><td class="col-notes">VENDREDI SOIR ET WEEKEND</td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">INSTALLATION/CONFIGURATION</td><td class="col-prod">TEM-PRE-NEO-CONFIG</td><td class="col-notes">120$ pour charger des frais fixe divers selon le nombre d'heure</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'OEUVRE AUTRE</td></tr>
+<tr class="bold-row"><td class="col-desc">INSTALLATION CONFIGURATION MD ANALYTIQUE</td><td class="col-prod">TEM-PRE-NEO-IC/ANALYTIQUE</td><td class="col-notes">120$ POUR SETUP</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION UEAT OU ISHOP</td><td class="col-prod">TEM-PRE-NEO-IC/CLIGNE</td><td class="col-notes">120$</td></tr>
+<tr class="bold-row"><td class="col-desc">FRAIS CONFIGURATION ISHOP</td><td class="col-prod">TEM-CNT-POS-INT-ISF</td><td class="col-notes">500$ FRAIS DE SETUP DE LA PLATEFORME</td></tr>
+<tr class="bold-row"><td class="col-desc">CONFIGURATION INTERFACE HOTEL</td><td class="col-prod">TEM-PRE-NEO-IC/INTHOTEL</td><td class="col-notes">120</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION UEAT HUB</td><td class="col-prod">TEM-PRE-NEO-IC/UEATHUB</td><td class="col-notes">120$ POUR UBEREAT/SKIP/DOORDASH</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION FREEBEES</td><td class="col-prod">TEM-PRE-NEO-IC/FREEBEES</td><td class="col-notes">120$ fournir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION DATACANDY</td><td class="col-prod">TEM-PRE-NEO-IC/DATACANDY</td><td class="col-notes">120$ fournir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION WISK</td><td class="col-prod">TEM-PRE-NEO-C/WISK</td><td class="col-notes">120</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION PIECEMEAL</td><td class="col-prod">TEM-PRE-NEO-C/PIECEMEAL</td><td class="col-notes">120</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION LIBRO</td><td class="col-prod">TEM-PRE-NEO-C_LIBRO</td><td class="col-notes">120 Founir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION SEEMYAPPS</td><td class="col-prod">TEM-PRE-NEO-IC/SEEMYAPPS</td><td class="col-notes">120$ LE CLIENT DOIT AVOIR LE EFT ENRICHIE</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION PAIEMENT (GLOBAL/MONERIS)</td><td class="col-prod">TEM-PRE-NEO-PAY</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION TACIT</td><td class="col-prod">TEM-PRE-NEO-IC/TACIT</td><td class="col-notes">120</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION GIVEX</td><td class="col-prod">TEM-PRE-NEO-IC/GIVEX</td><td class="col-notes">120</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRES À L'HEURE</td></tr>
+<tr><td class="col-desc">BANQUE D'HEURE</td><td class="col-prod">TEM-CNT-NEO-BANQUEH</td><td class="col-notes">120$/H</td></tr>
+<tr><td class="col-desc">PROGRAMMATION À L'HEURE</td><td class="col-prod">TEM-PRO-NEO-PROG_H</td><td class="col-notes">PROGRAMMATION  À L'HEURE</td></tr>
+<tr><td class="col-desc">FORMATION À L'HEURE</td><td class="col-prod">TEM-PRO-POS-FORMAT</td><td class="col-notes">FORMATION À L'HEURE</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION À L'HEURE</td><td class="col-prod">TEM-PRO-NEO-INST_H</td><td class="col-notes">INSTALLATION/CONFIGURATION À L'HEURE</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_SALES_ADMIN" style="display:none">
+<div class="sheet-title">INTÉGRATION THIRD PARTY</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION LIBRO</td><td class="col-prod">TEM-PRE-NEO-C_LIBRO</td><td class="col-notes">115$/hr Founir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION UEAT OU ISHOP</td><td class="col-prod">TEM-PRE-NEO-IC/CLIGNE</td><td class="col-notes">230$</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'OEUVRE AUTRE</td></tr>
+<tr class="bold-row"><td class="col-desc">FRAIS CONFIGURATION ISHOP</td><td class="col-prod">TEM-CNT-POS-INT-ISF</td><td class="col-notes">500$ FRAIS DE SETUP DE LA PLATEFORME</td></tr>
+<tr class="bold-row"><td class="col-desc">CONFIGURATION INTERFACE HOTEL</td><td class="col-prod">TEM-PRE-NEO-IC/INTHOTEL</td><td class="col-notes">115</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION PAIEMENT QR PAYFACTO</td><td class="col-prod">TEM-PRE-NEO-IC/QRPAY</td><td class="col-notes">230</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION UEAT HUB</td><td class="col-prod">TEM-PRE-NEO-IC/UEATHUB</td><td class="col-notes">115$ POUR UBEREAT/SKIP/DOORDASH</td></tr>
+<tr class="bold-row"><td class="col-desc">INSTALLATION CONFIGURATION OSPERIA MEMO</td><td class="col-prod">TEM-PRE-NEO-IC/GIRAFMESS</td><td class="col-notes">115</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION FREEBEES</td><td class="col-prod">TEM-PRE-NEO-IC/FREEBEES</td><td class="col-notes">230 fournir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION DATACANDY</td><td class="col-prod">TEM-PRE-NEO-IC/DATACANDY</td><td class="col-notes">230 fournir code</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION WISK</td><td class="col-prod">TEM-PRE-NEO-C/WISK</td><td class="col-notes">115</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION PIECEMEAL</td><td class="col-prod">TEM-PRE-NEO-C/PIECEMEAL</td><td class="col-notes">115</td></tr>
+<tr class="bold-row"><td class="col-desc">INTÉGRATION SEEMYAPPS</td><td class="col-prod">TEM-PRE-NEO-IC/SEEMYAPPS</td><td class="col-notes">230$ LE CLIENT DOIT AVOIR LE EFT ENRICHIE</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_FOURNITURES" style="display:none">
+<div class="sheet-title">FOURNITURES</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th><th class="col-extra">détails</th></tr></thead>
+<tbody>
+<tr class="bold-row"><td class="col-desc">FRAIS DE LIVRAISON</td><td class="col-prod">TEM-LIV-POS-LIVRAISO</td><td class="col-notes">FRAIS EN SUS</td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">PAPIERS IMPRIMANTE CUISINE ET BAR</td></tr>
+<tr class="bold-row"><td class="col-desc">Papier imprimante cuisine/bar Epson/Star 1X COPIE</td><td class="col-prod">FOU-PAP-BON-BOND3X3C</td><td class="col-notes">IMPRIMANTE EPSON TMU220 ET STAR 742</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Papier imprimante cuisine/bar Epson/Star 2X COPIE</td><td class="col-prod">FOU-PAP-BON-3X3/2-C</td><td class="col-notes">IMPRIMANTE EPSON TMU220 ET STAR 742</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Papier imprimante cuisine Star 3X COPIE</td><td class="col-prod">FOU-PAP-RRD-3X33PC</td><td class="col-notes">SEULEMENT IMPRIMANTE STAR 742</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Ruban d'Encre pour EPSON noir et rouge</td><td class="col-prod">FOU-RUB-EPS-ERC34R/N</td><td class="col-notes">COMMANDE MINIMUM 6 UNITÉS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Ruban d'Encre pour EPSON violet</td><td class="col-prod">FOU-RUB-EPS-ERC34V</td><td class="col-notes">COMMANDE MINIMUM 6 UNITÉS</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Ruban d'Encre pour STAR noir et rouge</td><td class="col-prod">FOU-RUB-STA-30980721</td><td class="col-notes">COMMANDE MINIMUM 6 UNITÉS</td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">PAPIERS IMPRIMANTE FACTURE</td></tr>
+<tr class="bold-row"><td class="col-desc">Papier imprimante thermal</td><td class="col-prod">FOU-PAP-BSP-TH3 1/8C</td><td class="col-notes">MODÈLE EPSON TM-88 ET T20</td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">PAPIERS TERMIAUX DE PAIEMENTS (PAYFACTO,DESJARDINS,GLOBAL, MONERIS)</td></tr>
+<tr class="bold-row"><td class="col-desc">Papier thermal terminaux paiement</td><td class="col-prod">FOU-PAP-BSP-INT60</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">PAPIERS CAISSE ENREGISTREUSE</td></tr>
+<tr class="bold-row"><td class="col-desc">Papier caisse TEC et Casio</td><td class="col-prod">FOU-PAP-RRD-TH1535C</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Papier caisse SHARP</td><td class="col-prod">FOU-PAP-BSP-1 3/4</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">ÉTIQUETTES BALANCE</td></tr>
+<tr class="bold-row"><td class="col-desc">Etiquette DIGI Linerless</td><td class="col-prod">FOU-ETQ-DGI-60X55C</td><td class="col-notes">Pour model ASTRA AC 4000e et  DIGI SM 120</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Etiquette précoupée 12L</td><td class="col-prod">FOU-ETQ-TOS-SL661BNC</td><td class="col-notes">Pour model SL-9000 (12 lignes)</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Etiquette précoupée 6L</td><td class="col-prod">FOU-ETQ-TOS-SL666BNC</td><td class="col-notes">Pour model SL-9000 (6 lignes)</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Etiquette continue</td><td class="col-prod">FOU-ETQ-TOS-SL9000C</td><td class="col-notes">Pour Model Ishida UNI-3, UNI-5, UNI-7 et DIGI SM 100</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Etiquette carton 1 1/4-2 1/4 rouleau de 500</td><td class="col-prod">FOU-ETQ-STR-DT11/4_21/4</td><td class="col-notes">Pour Zebra direct thermal</td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">TIROIR CAISSE</td></tr>
+<tr class="bold-row"><td class="col-desc">TIROIR CAISSE APG</td><td class="col-prod">KIT-TIR-APG-BL1616</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">INSERT POUR TIROIR CAISSE</td><td class="col-prod">REP-INS-APG-VASARIO</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">BOUCHON BERG 704 et 1504</td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur regulier</td><td class="col-prod">BER-BOU-BER-SF_</td><td class="col-notes">01, A 07</td><td class="col-extra">7 DIFFÉRENTS FORMATS</td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur high flow</td><td class="col-prod">BER-BOU-BER-HF_</td><td class="col-notes">01 A 015</td><td class="col-extra">15 DIFFÉRENTS FORMATS</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">BOUCHON ANDRO ID</td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur andro ID</td><td class="col-prod">BAR-BOU-USC-ANDROID</td><td class="col-notes">1 FORMAT</td><td class="col-extra">FONCTIONNE AVEC DES PUCES</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">BOUCHON FARO/BERG</td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur ABID</td><td class="col-prod">BER-BOU-BER-9520</td><td class="col-notes">1 FORMAT</td><td class="col-extra">FONCTIONNE AVEC DES PUCES POUR BERG ABID ET FARO</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">BOUCHON VELMIX</td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur  Velmix HF</td><td class="col-prod">VEL-BOU-VEL-HF</td><td class="col-notes">1 FORMAT</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Bec verseur  Velmix REG ET REG ALBRESH (MÊME PRODUIT)</td><td class="col-prod">VEL-BOU-VEL-REG</td><td class="col-notes">1 FORMAT</td><td class="col-extra"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">DIVERS BERG/FARO</td></tr>
+<tr class="bold-row"><td class="col-desc">Shrink régulier</td><td class="col-prod">BER-PIE-UNI-SEALSB</td><td class="col-notes">pqt 1000</td><td class="col-extra">pour 704 et 1504 BOUCHON A BAGUE BERG</td></tr>
+<tr class="bold-row"><td class="col-desc">Sceau de sécurité ABID</td><td class="col-prod">BAR-PIE-AZB-SHRINK</td><td class="col-notes">pqt 1000</td><td class="col-extra">pour Faro et ABID COUCHON A PUCE BERG</td></tr>
+<tr class="bold-row"><td class="col-desc">Sceau de sécurité Téquila Patron</td><td class="col-prod">BER-PIE-BER-7098</td><td class="col-notes">pqt 125</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Couvert bec verseur</td><td class="col-prod">BAR-PIE-VEL-CAP</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Tubes et Valves High Flow (pqt20)</td><td class="col-prod">BER-PIE-BER-5126</td><td class="col-notes">pqt 20</td><td class="col-extra">PAILLES BERG</td></tr>
+<tr class="bold-row"><td class="col-desc">Nylon de remplacement petit</td><td class="col-prod">BER-PIE-BER-7281</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Nylon de remplacement régulier</td><td class="col-prod">BER-PIE-BER-7122</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Nylon de remplacement grand</td><td class="col-prod">BER-PIE-BER-7282</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Nylon de remplacement très grand</td><td class="col-prod">BER-PIE-BER-8799</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Nylon de remplacement Tequila Patron</td><td class="col-prod">BER-PIE-BER-7194</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Pistolet a air chaud</td><td class="col-prod">BER-PIE-CAN-HEATGUN</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Couvert à bec tête à bière</td><td class="col-prod">BER-PIE-BER-3540</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Levier de plastique pour tête à bière</td><td class="col-prod">BER-PIE-BER-3272</td><td class="col-notes">à l'unité</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Adapteur pour levier à fût (TAB2)</td><td class="col-prod">BER-PIE-BER-4964</td><td class="col-notes">à l'unité (MIN 5)</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">Carte bande magnétique employé/gérant</td><td class="col-prod">FOU-CAR-KEY-HYCO2750</td><td class="col-notes">vendu à l'unité (min 10)</td><td class="col-extra">( blank server cards)</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="4">DIVERS VELMIX</td></tr>
+<tr class="bold-row"><td class="col-desc">PAILLE ET VALVE VELMIX BOUCHON HF</td><td class="col-prod">BAR-PIE-VEL-PAILLE_HFU</td><td class="col-notes">VENDUE A L'UNITÉ (MIN 10)</td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">PAILLE ET VALVE VELMIX BOUCHON REGULIER</td><td class="col-prod">BAR-PIE-VEL-PAILLE_RU</td><td class="col-notes">VENDUE A L'UNITÉ (MIN 10)</td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BASE DE RECHARGE A920</td><td class="col-prod">ACC-CRA-PAY-CRADLE1</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">BASE DE RECHARGE MULTIPLE A920</td><td class="col-prod">ACC-CRA-PAY-CRADLES</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr><td class="col-desc">BASE DE RECHARGE A920 PRO</td><td class="col-prod">ACC-CRA-PAY-CRADLE1_PRO</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+<tr class="bold-row"><td class="col-desc">BASE DE RECHARGE MULTIPLE A920 PRO</td><td class="col-prod">ACC-CRA-PAY-CRADLES_PRO</td><td class="col-notes"></td><td class="col-extra"></td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_KDS_VELOCE" style="display:none">
+<div class="sheet-title">CVM VELOCE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">ÉQUIPEMENTS</td></tr>
+<tr class="bold-row"><td class="col-desc">PC SLIM DT166 POUR CVM</td><td class="col-prod">POS-SLI-DTR-DT166CR</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">BUMPBOX VELOCE</td><td class="col-prod">ACC-CLA-VEL-BUM_ACH</td><td class="col-notes">UN PAR ECRAN</td></tr>
+<tr class="section-header"><td colspan="3">ECRAN VIEWSONIC  22'' LED FULL HD</td></tr>
+<tr><td class="col-desc">BRACKET KIT POUR BUMP ET CVM</td><td class="col-prod">REP-BRK-MTP-KDS</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">7FLEX LCD ARM W/1000N</td><td class="col-prod">REP-BRK-BLU-FLEXARM</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">ISOBAR 2-OUTLET PROTECTION</td><td class="col-prod">ACC-BAT-TRP-FILTRE</td><td class="col-notes">1X PAR ÉCRAN</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'OEUVRES</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION</td><td class="col-prod">TEM-PRE-NEO-IC/ECRCUIVEL</td><td class="col-notes">115$/KDS</td></tr>
+<tr><td class="col-desc">FORMATION BUMP BOX</td><td class="col-prod">TEM-FOR-NEO-BUMBOX4H</td><td class="col-notes">POS</td></tr>
+<tr><td class="col-desc">PROG MENU POUR CVM</td><td class="col-prod">TEM-PRO-POS-MENUBUM</td><td class="col-notes">OBLIGATOIRE POUR CLIENT EXISTANT 500$</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS JOUR SEMAINE</td><td class="col-prod">TEM-LIV-NEO-LIVE</td><td class="col-notes">LUNDI AU VENDREDI DE JOUR</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI</td><td class="col-prod">TEM-LIV-NEO-LIVE_SSEM</td><td class="col-notes">SOIR DU LUNDI AU JEUDI</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND</td><td class="col-prod">TEM-LIV-NEO-LIVE_WE</td><td class="col-notes">VENDREDI SOIR ET WEEKEND</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_KDS_MD" style="display:none">
+<div class="sheet-title">CVM MAITTRE'D</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header" style="background-color:#00B0F020;"><td colspan="3">ÉQUIPEMENTS</td></tr>
+<tr class="bold-row"><td class="col-desc">PC SLIM DT166 POUR CVM</td><td class="col-prod">POS-SLI-DTR-DT166CR</td><td class="col-notes">PRENDRE CE PRODUIT SEULEMENT POUR LES CLIENTS EN PLAN SAAS ILLIMITÉ</td></tr>
+<tr class="bold-row"><td class="col-desc">BUMP BOX 20 TOUCHES</td><td class="col-prod">ACC-BOX-PSR-CVMBBPS2</td><td class="col-notes">UN PAR CVM</td></tr>
+<tr style="background-color:#FFFF0020;"><td class="col-desc">POS AIO TD NEXUS 21,5''</td><td class="col-prod">POS-AIO-TOU-NEXUS21</td><td class="col-notes">PAS BESOIN DE PC, ÉCRAN ET BUMP BOX</td></tr>
+<tr><td class="col-desc">CVM 20 KEY STAINLESS MOUNT</td><td class="col-prod">ACC-BRK-PSR-BBMOUNT</td><td class="col-notes">A METTRE SI BUMPBOX SUR COMPTOIR</td></tr>
+<tr><td class="col-desc">ECRAN VIEW SONIC 22'' LED FULL HD</td><td class="col-prod">ACC-ECR-VWS-VA2246MH</td><td class="col-notes">1 par CVM</td></tr>
+<tr><td class="col-desc">ECRAN TACTILE ELO 22P AVEC PIED</td><td class="col-prod">ACC-ECR-ELO-ELOPCAP</td><td class="col-notes">1 par CVM</td></tr>
+<tr><td class="col-desc">ECRAN TACTILE ELO 22P SANS PIED</td><td class="col-prod">ACC-ECR-ELO-ELO2202L_SANSPIED</td><td class="col-notes">1 par CVM</td></tr>
+<tr><td class="col-desc">BRACKET KIT POUR BUMP ET CVM</td><td class="col-prod">REP-BRK-MTP-KDS</td><td class="col-notes">BRACKET POUR ÉCRAN CVM ET BUNPBOX</td></tr>
+<tr><td class="col-desc">7FLEX LCD ARM W/1000N</td><td class="col-prod">REP-BRK-BLU-FLEXARM</td><td class="col-notes">A UTILISER POUR INSTALLATION SUR TABLETTE STANLLESS OU AUTRE TABLETTE</td></tr>
+<tr><td class="col-desc">CABLE HDMI TO DVI-D</td><td class="col-prod">WIR-CAB-ACS-DVDHDMI</td><td class="col-notes">UN PAR CVM</td></tr>
+<tr><td class="col-desc">POWER BAR TRIPP-LITE 6 PRISES</td><td class="col-prod">ACC-POW-TRP-POWERBAR</td><td class="col-notes">SELON LES BESOINS</td></tr>
+<tr><td class="col-desc">POTEAUX POUR ÉCRAN</td><td class="col-prod">ACC-AFF-UNT-POLE</td><td class="col-notes">CHOISIR ENTRE 32'' ET 50'' SELON LA HAUTEUR SI NECESSAIRE</td></tr>
+<tr><td class="col-desc">ISOBAR 2-OUTLET PROTECTION</td><td class="col-prod">ACC-BAT-TRP-FILTRE</td><td class="col-notes">UN PAR POWER BAR</td></tr>
+<tr class="section-header" style="background-color:#00B0F020;"><td colspan="3">MAIN D'OEUVRES</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION</td><td class="col-prod">TEM-PRE-NEO-CONFIG</td><td class="col-notes">120$ PAR BUMP BOX</td></tr>
+<tr><td class="col-desc">FORMATION BUMP BOX</td><td class="col-prod">TEM-FOR-NEO-BUMBOX4H</td><td class="col-notes">4 HEURES OBLIGATOIRE</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS JOUR SEMAINE</td><td class="col-prod">TEM-LIV-NEO-LIVE</td><td class="col-notes">LUNDI AU VENDREDI DE JOUR</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI</td><td class="col-prod">TEM-LIV-NEO-LIVE_SSEM</td><td class="col-notes">SOIR DU LUNDI AU JEUDI</td></tr>
+<tr class="bold-row"><td class="col-desc">SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND</td><td class="col-prod">TEM-LIV-NEO-LIVE_WE</td><td class="col-notes">VENDREDI SOIR ET WEEKEND</td></tr>
+<tr><td class="col-desc">PROG MENU POUR CVM</td><td class="col-prod">TEM-PRO-POS-MENUBUM</td><td class="col-notes">OBLIGATOIRE POUR CLIENT EXISTANT 650$</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_TABLETTE" style="display:none">
+<div class="sheet-title">SANS-FILS</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">TABLETTE TOUCH DYNAMIC</td></tr>
+<tr class="bold-row"><td class="col-desc">TABLETTE TD QUEST VIII ULTRA 8'' SANS MSR</td><td class="col-prod">POS-MOB-TOU-QVIII_ULTRA</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">TABLETTE TD QUEST VIII 8'' AVEC MSR</td><td class="col-prod">POS-MOB-TOU-QVIII_ULTRA_MSR</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">GARANTIE DE 3ANS DOMAGE PHYSIQUE</td><td class="col-prod">GAR-CNT-TOU-Q3YRNF</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BASE DE CHARGE 1X</td><td class="col-prod">ACC-CRA-TOU-CR_VIII</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BASE DE CHARGE 5X</td><td class="col-prod">ACC-CHA-TOU-CHARG5T</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">POCHETTE QUEST VIII</td><td class="col-prod">ACC-ACC-TOU-ETUIE_10B</td><td class="col-notes"></td></tr>
+<tr class="bold-row" style="background-color:#FF000020;"><td class="col-desc">TABLETTE REFURBISH 7''</td><td class="col-prod">POS-MOB-TOU-Q700_RF</td><td class="col-notes">PREND AUTORISATION DE MATHIEU</td></tr>
+<tr class="bold-row" style="background-color:#FF000020;"><td class="col-desc">TABLETTE REFURBISH 10''</td><td class="col-prod">POS-MOB-TOU-Q1000_RF</td><td class="col-notes">PREND AUTORISATION DE MATHIEU</td></tr>
+<tr><td class="col-desc">BANDOULIERER A ÉPAULE POUR TABLETTE</td><td class="col-prod">ACC-ACC-TAB-STRAP</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">TOUCH DYNAMIC, QUEST, ACCESSORY, 2D IMAGER</td><td class="col-prod">ACC-SCA-TOU-QSCAN</td><td class="col-notes">BON POUR LES MODÈLES 7'' ET 10''</td></tr>
+<tr><td class="col-desc">CRADEL POUR VIELLE TD 8''</td><td class="col-prod">ACC-CRA-TOU-CRADLE2</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">TABLETTE ZEBRA (veloce)</td></tr>
+<tr class="bold-row"><td class="col-desc">TABLETTE ZEBRA ET40 8'' WIFI6 SCANNER 1D/2D</td><td class="col-prod">KIT-MOB-ZEB-ET40_8</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">TABLETTE ZEBRA ET40 10'' WIFI6 SCANNER 1D/2D</td><td class="col-prod">KIT-MOB-ZEB-ET40_10</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BASE DE CHARGE ZEBRA 1X</td><td class="col-prod">KIT-CRA-ZEB-CRADLE1</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BASE DE CHARGE ZEBRA 4X</td><td class="col-prod">KIT-CRA-ZEB-CRADLE4</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">POCHETTE TABLETTE 8'' ZEBRA</td><td class="col-prod">ACC-ACC-MOB-PROTECT_8</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">STAND POUR TABLETTE 8'' ZEBRA</td><td class="col-prod">KIT-ACC-MTI-BASEPLATE</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BATTERIE EXTRA POUR ZEBRA ET40</td><td class="col-prod">ACC-BAT-ZEB-ET40</td><td class="col-notes">À L'UNITÉ</td></tr>
+<tr><td class="col-desc">CHARGEUR 4 BATTERIE ZEBRA</td><td class="col-prod">KIT-CHA-ZEB-ET5X</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">GARANTIE COMPREHENSIVE 3 ANS</td><td class="col-prod">GAR-CNT-ZEB-ET40_3</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">GARANTIE COMPREHENSIVE 5 ANS</td><td class="col-prod">GAR-CNT-ZEB-ET40_5</td><td class="col-notes"></td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_VELMIX_FARO" style="display:none">
+<div class="sheet-title">VELMIX</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">CONTRÔLEUR VELMIX ALCOOL</td></tr>
+<tr class="bold-row"><td class="col-desc">CONTROLEUR DE FORT VELMIX TRUE-ID</td><td class="col-prod">BAR-SYS-VEL-TRUEID</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">CONTRÔLEUR FARO ALCOOL</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT FARO VELMIX / ACROBAT ANDROID</td><td class="col-prod">KIT-SYS-TOU-FARO</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">KIT FARO VELMIX / TABLETTE</td><td class="col-prod">KIT-SYS-MCT-FARO</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">HARDWARE FARO ALCOOL</td></tr>
+<tr class="bold-row"><td class="col-desc">BOUCHONS VELMIX - HIGH FLOW</td><td class="col-prod">VEL-BOU-VEL-HF</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">CAPUCHON ANTI-MOUCHE POUR VELMIX</td><td class="col-prod">BAR-PIE-VEL-CAP</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">NYLON DE REMPLACEMENT X-LARGE</td><td class="col-prod">BER-PIE-BER-8799</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">NYLON DE REMPLACEMENT LARGE</td><td class="col-prod">BER-PIE-BER-7282</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">NYLON DE REMPLACEMENT PETIT</td><td class="col-prod">BER-PIE-BER-7281</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">NYLON DE REMPLACEMENT PATRON (TEQUILA)</td><td class="col-prod">BER-PIE-BER-7194</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">SCEAU DE SÉCURITÉ CHAUFFANT</td><td class="col-prod">BAR-PIE-AZB-SHRINK</td><td class="col-notes">pqt 1000</td></tr>
+<tr class="bold-row"><td class="col-desc">PISRTOLET À AIR CHAUD</td><td class="col-prod">BER-PIE-CAN-HEATGUN</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">HARWARE FARO VELMIX LC</td></tr>
+<tr class="bold-row"><td class="col-desc">VELMIX LC (LINE CONTROL)</td><td class="col-prod">BAR-PIE-VEL-VELMIXLC</td><td class="col-notes">CONTRLEUR PRINCIPAL (16 LIGNES)</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT POUR VAN ET TURBINE</td><td class="col-prod">KIT-PIE-VEL-VANTURBINE</td><td class="col-notes">INCLUS TOUT LES COMPOSANTES</td></tr>
+<tr class="bold-row"><td class="col-desc">BOITE CONNEXION DÉBIMETRE</td><td class="col-prod">WIR-CON-INS-DEBIMETRE</td><td class="col-notes">1 BOITE PAR 8 LIGNES</td></tr>
+<tr class="bold-row"><td class="col-desc">BOITE DE CONNEXION VELMIX</td><td class="col-prod">WIR-CON-INS-VELMIX</td><td class="col-notes">1 BOITE PAR 8 LIGNES</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRE VELMIX ALCOOL</td></tr>
+<tr><td class="col-desc">INSTALLATION VELMIX ALCOOL</td><td class="col-prod">TEM-PRE-NEO-INSTBEIG</td><td class="col-notes">275</td></tr>
+<tr><td class="col-desc">PROGRAMMATION RECETTE COCKTAIL/ALCOOL</td><td class="col-prod">TEM-PRO-NEO-BERGPROG</td><td class="col-notes">600</td></tr>
+<tr><td class="col-desc">FORMATION</td><td class="col-prod">TEM-FOR-NEO-INBAR4H</td><td class="col-notes">230 $</td></tr>
+<tr><td class="col-desc">CAPAGE DE BOUCHON</td><td class="col-prod">TEM-PRE-NEO-CAP_FARO</td><td class="col-notes">2,50$/BOUTEILLE</td></tr>
+<tr class="bold-row" style="background-color:#FFFF0020;"><td class="col-desc">SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI</td><td class="col-prod">TEM-LIV-NEO-LIVE_SSEM</td><td class="col-notes">SOIR DU LUNDI AU JEUDI</td></tr>
+<tr class="bold-row" style="background-color:#FFFF0020;"><td class="col-desc">SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND</td><td class="col-prod">TEM-LIV-NEO-LIVE_WE</td><td class="col-notes">VENDREDI SOIR ET WEEKEND</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRE VELMIX FÛT</td></tr>
+<tr><td class="col-desc">INSTALLATION CONTROLEUR</td><td class="col-prod">TEM-PRE-NEO-INSTLC</td><td class="col-notes">250</td></tr>
+<tr><td class="col-desc">INSTALLATION BIÈRE EN FÛT</td><td class="col-prod">TEM-PRE-NEO-INSTLM</td><td class="col-notes">155$/LIGNE</td></tr>
+<tr><td class="col-desc">INSTALLATION LIGNE LM</td><td class="col-prod">TEM-PRE-NEO-INSTVELLM</td><td class="col-notes">60$/LIGNE</td></tr>
+<tr><td class="col-desc">PROGRAMMATION BIÈRE EN FÛT</td><td class="col-prod">TEM-PRO-NEO-BIEREFUT</td><td class="col-notes">115</td></tr>
+<tr><td class="col-desc">FORMATION</td><td class="col-prod">TEM-FOR-NEO-INTFUT</td><td class="col-notes">115</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">texte a mettre dans vos soumissisons de bière en fût</td></tr>
+<tr class="section-header"><td colspan="3">**Advenant le cas où les turbines/valves sont installées a plus de 20 pieds du contrôleur Velmix LC qui se trouve lui aussi à l'extérieur du réfrigérateur, des frais supplémentaires de 4$/pied seront chargés en sus.</td></tr>
+<tr class="section-header"><td colspan="3">Le premier 20 pieds est inclus dans le prix de base, la charge sera effectuée seulement pour les pieds supplémentaires.</td></tr>
+<tr class="section-header"><td colspan="3">**Important Un fil réseau devra être passé entre à l'exterieur du réfrigérateur et votre commutateur(switch) réseau. De plus il faut aussi prévoir une prise électrique à l'extérieur du frigo.</td></tr>
+<tr class="section-header"><td colspan="3">Ces ajouts devront être planifiés par le client et complétés avant l’installation du système.</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_BORNE" style="display:none">
+<div class="sheet-title">BORNE DE COMMANDE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr><td class="col-desc">BORNE TOUCH DYNAMIC EDGE 22''</td><td class="col-prod">KIT-AIO-TOU-EDGE22</td><td class="col-notes">INCLUS L'IMPRIMANTE FACTURE (EPSON TM-30)</td></tr>
+<tr><td class="col-desc">BASE POUR PLACHER TD EDGE</td><td class="col-prod">ACC-BRK-TOU-KIOSK4000</td><td class="col-notes">SEULEMENT SI LA BASE EST INSTALLÉ DIRECTEMENT AU PLANCHER</td></tr>
+<tr><td class="col-desc">CARTE SANS FIL (WIFI) POUR TD EDGE</td><td class="col-prod">ACC-CAR-TOU-M2KIT2</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">LECTEUR CODE BARRE POUR TD EDGE</td><td class="col-prod">ACC-LEC-TOU-CM5680WA</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BRACKET PINPAD UNIVERSEL</td><td class="col-prod">ACC-BRK-TOU-PAX_S300</td><td class="col-notes">EST COMPATIBLE AVEC LE IM-30</td></tr>
+<tr class="section-header"><td colspan="3">VOIR LA SECTION MAIN D'ŒUVRE</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_ST_HUBERT" style="display:none">
+<div class="sheet-title">ST-HUBERT</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">KIT SERVEUR DE BUREAU</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT SERVEUR RAZOR I5 16GB 512GB</td><td class="col-prod">KIT-TOU-RAZ-RPC5650_STH</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">KIT POS ST-HUBERT</td></tr>
+<tr class="bold-row"><td class="col-desc">POS AIO TOUCH DYNAMIC NEXUS</td><td class="col-prod">POS-AIO-TOU-NX1560</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">KIT TABLETTE ST-HUBERT</td></tr>
+<tr><td class="col-desc">TABLETTE TD QUEST VIII</td><td class="col-prod">KIT-MOB-TOU-Q_VIIISTHUB</td><td class="col-notes">COMPRENDS GARANTO COMPRÉHENSIVE 3 ANS</td></tr>
+<tr><td class="col-desc">CHARGEUR 5 TABLETTES</td><td class="col-prod">ACC-CHA-TOU-CHARG5T</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">KIT PC ADMINISTRATIF ST-HUBERT</td></tr>
+<tr class="bold-row"><td class="col-desc">PC ADMIN STANDARD</td><td class="col-prod">KIT-DMI-HPK-PCADMIN</td><td class="col-notes">KIT COMPRENDS UN ÉCRANS 22'' DE BUREAU</td></tr>
+<tr class="bold-row"><td class="col-desc">PC ADMIN POUR REMPLACEMENT</td><td class="col-prod">KIT-DMI-HPK-PCADMIN_R</td><td class="col-notes">KIT SANS ÉCRAN 22'' DE BUREAU</td></tr>
+<tr class="bold-row"><td class="col-desc">PC ADMIN COMPTABLE</td><td class="col-prod">KIT-DMI-HPK-PCCOMPTABLE</td><td class="col-notes">KIT COMPRENDS UN ÉCRANS 22'' DE BUREAU</td></tr>
+<tr class="section-header"><td colspan="3">CVM CUISINE (KDS)</td></tr>
+<tr><td class="col-desc">MINI PC DT166CR</td><td class="col-prod">POS-SLI-DTR-DT166CR</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BUMPBOX 20 KEY CVM</td><td class="col-prod">ACC-BOX-PSR-CVMBBPS2</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BRAS AMOVIBLE POUR BRACKET</td><td class="col-prod">REP-BRK-BLU-FLEXARM</td><td class="col-notes"></td></tr>
+<tr><td class="col-desc">BRACKET POUR CVM (KDS)</td><td class="col-prod">REP-BRK-MTP-KDSKIT</td><td class="col-notes">BRACKET COMPREND, ESPACE POUR PC, BUMBOX ET ÉCRAN</td></tr>
+<tr class="section-header"><td colspan="3">IMPRIMANTE BORNE DE CUISINE</td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE ÉTIQUETTE ZEBRA</td><td class="col-prod">ACC-IMP-ZEB-ZD421</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">KIT LIBRO ST-HUBERT</td></tr>
+<tr><td class="col-desc">KIT LIBRO</td><td class="col-prod">KIT-DMI-HPK-LIBRO</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">KIT FAST TRACK</td></tr>
+<tr class="section-header"><td colspan="3">À DÉTERMINER</td></tr>
+<tr class="section-header"><td colspan="3">ACCESSOIRES POS</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT MEV</td><td class="col-prod">KIT-MEV-IBM-MEV2</td><td class="col-notes">COMPRENDS CABLE DB9</td></tr>
+<tr class="bold-row"><td class="col-desc">CLAVIER MEV</td><td class="col-prod">ACC-CLA-IBM-CLAMEV</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc"></td><td class="col-prod">IMPRIMANTE CUISINE</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE TMU220 RÉSEAU</td><td class="col-prod">KIT-IMP-EPS-TMU220BE</td><td class="col-notes">COMPREND COMPOSANTES</td></tr>
+<tr class="bold-row"><td class="col-desc"></td><td class="col-prod">IMPRIMANTE FACTURE</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE CITIZEN S751 SÉRIE</td><td class="col-prod">KIT-IMP-CTZ-S751</td><td class="col-notes">COMPREND COMPOSANTES</td></tr>
+<tr class="bold-row"><td class="col-desc">ÉTUIT POUR TABLETTE</td><td class="col-prod">ACC-ACC-TOU-ETUIE_10B</td><td class="col-notes"></td></tr>
+<tr class="bold-row"><td class="col-desc">CARTE GÉRANT</td><td class="col-prod">FOU-CAR-KEY-HYCO2750</td><td class="col-notes"></td></tr>
+<tr class="section-header"><td colspan="3">SAAS MD ST-HUBERT</td></tr>
+<tr class="bold-row"><td class="col-desc">SAAS MD ST-HUBERT</td><td class="col-prod">KIT-MOD-PSR-STH</td><td class="col-notes">272$/MOIS</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'ŒUVRE</td></tr>
+<tr class="bold-row"><td class="col-desc">INSTALLATION/CONFIG ST-HUBERT</td><td class="col-prod">TEM-PRO-NEO-INST_H_STH</td><td class="col-notes">100$/HR</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_BENNY_2" style="display:none">
+<div class="sheet-title">BENNY 2</div>
+<table>
+<thead><tr><th>Type</th><th>Numéro d'article</th><th>Description article</th><th>Quantité</th><th>Prix unitaire</th><th>Remise %</th><th>Total (DI)</th></tr></thead>
+<tbody>
+<tr><td></td><td>SER-TOU-TOS-TCX300</td><td>SERVEUR TOSHIBA TCX300 E71, INTEL CORE I3 9100TE, 16GB, 256GB SSD, WIN 10 IOT</td><td>1</td><td>2 094,93 $</td><td>9000</td><td>1 906,39 $</td></tr>
+<tr><td></td><td>REP-DIS-SAM-SSD500GB</td><td>SAMSUNG EVO PLUS 500 GB NVMe M.2 SSD</td><td>1</td><td>220,00 $</td><td>9000</td><td>200,20 $</td></tr>
+<tr><td></td><td>ACC-BAT-TRP-500RT1U</td><td>BATTERIE SMART500RT1U</td><td>1</td><td>585,00 $</td><td>9000</td><td>532,35 $</td></tr>
+<tr><td></td><td>ACC-POW-TRP-BARRE_12</td><td>BARRE DE PUISSANCE TRIPP-LITE 12 PRISES</td><td>1</td><td>139,52 $</td><td>9000</td><td>126,96 $</td></tr>
+<tr><td></td><td>WIR-BRK-ADD-TAB1U_V</td><td>TABLETTE VENTILÉ 1U 10P</td><td>3</td><td>81,75 $</td><td>9000</td><td>223,18 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-1FTRJ45B</td><td>CABLE RJ45 1 PIED BLEU</td><td>50</td><td>3,27 $</td><td>9000</td><td>148,79 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-3FTRJ45N</td><td>Câble RJ45 3 pieds noir</td><td>10</td><td>3,27 $</td><td>9000</td><td>29,76 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-6FTRJ45B</td><td>Câble RJ45 6 pieds gris</td><td>20</td><td>3,80 $</td><td>9000</td><td>69,16 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-15RJ45N</td><td>Câble RJ45 15 pieds</td><td>1</td><td>7,63 $</td><td>9000</td><td>6,94 $</td></tr>
+<tr><td></td><td>WIR-CON-CBK-RJ4509F</td><td>CONNECTEUR RJ45F/DB09F (WIRED) TERMINER</td><td>5</td><td>29,43 $</td><td>9000</td><td>133,91 $</td></tr>
+<tr><td></td><td>WIR-CON-CBK-RJ4525M</td><td>CONNECTEUR RJ45F/DB25M (WIRED) TERMINER</td><td>5</td><td>32,70 $</td><td>9000</td><td>148,79 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/RACKRES</td><td>INSTALLATION/CONFIGURATION RACK RÉSEAU</td><td>1</td><td>475,00 $</td><td>0,000</td><td>475,00 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/SERVEUR</td><td>INSTALLATION/CONFIGURATION SERVEUR</td><td>1</td><td>405,00 $</td><td>0,000</td><td>405,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>KIT-AIO-TOU-ACROJ6412</td><td>POS TD ACROBAT J6412</td><td>5</td><td>1 986,20 $</td><td>9000</td><td>9 037,21 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/POS</td><td>INSTALLATION/CONFIGURATION POS</td><td>5</td><td>275,00 $</td><td>0,000</td><td>1 375,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>KIT-TIR-APG-BL1616</td><td>TIROIR CAISSE APG</td><td>3</td><td>343,53 $</td><td>0,000</td><td>1 030,59 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>KIT-IMP-CTZ-S601</td><td>IMPRIMANTE CITIZEN CT-S601 SÉRIE</td><td>5</td><td>539,67 $</td><td>0,000</td><td>2 698,35 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>ACC-IMP-EPS-TM88R</td><td>IMPRIMANTE EPSON TM-T88 RÉSEAU</td><td>1</td><td>637,83 $</td><td>9000</td><td>580,43 $</td></tr>
+<tr><td></td><td>ACC-PIE-EPS-BUZZER</td><td>BUZZER EXTERNE POUR IMPRIMANTE EPSON TM88/T20</td><td>1</td><td>64,42 $</td><td>9000</td><td>58,62 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>ACC-LEC-ZEB-DS2208</td><td>SCANNER ZEBRA DS2208, 2D, USB</td><td>1</td><td>398,28 $</td><td>9000</td><td>362,43 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/SCAN</td><td>INSTALLATION/CONFIGURATION SCANNER</td><td>1</td><td>60,00 $</td><td>0,000</td><td>60,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>POS-SLI-DTR-DT166CR</td><td>MINI ORDINATEUR DT166CR WIN10 64GB</td><td>2</td><td>1 139,38 $</td><td>9000</td><td>2 073,67 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-6FTRJ45R</td><td>Câble RJ45 6 pieds rouge</td><td>4</td><td>3,95 $</td><td>0,000</td><td>15,80 $</td></tr>
+<tr><td></td><td>ACC-CLA-VEL-BUM_ACH</td><td>CLAVIER DE CUISINE POUR ECRAN VELOCE</td><td>2</td><td>665,00 $</td><td>9000</td><td>1 210,30 $</td></tr>
+<tr><td></td><td>ACC-ECR-VWS-VA2246MH</td><td>ECRAN VIEW SONIC 22'' VA2246MH LED, HD, 1080P</td><td>2</td><td>195,97 $</td><td>9000</td><td>356,67 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/ECRCUIVEL</td><td>INSTALLATION/CONFIGURATION ECRAN CUISINE VELOCE</td><td>2</td><td>115,00 $</td><td>0,000</td><td>230,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>POS-SLI-DTR-DT166CR</td><td>MINI ORDINATEUR DT166CR WIN10 64GB</td><td>1</td><td>1 139,38 $</td><td>9000</td><td>1 036,84 $</td></tr>
+<tr><td></td><td>WIR-CAB-ACS-6FTRJ45N</td><td>Câble RJ45 6 pieds noir</td><td>2</td><td>3,80 $</td><td>0,000</td><td>7,60 $</td></tr>
+<tr><td></td><td>ACC-ECR-GES-SCP15</td><td>ÉCRAN TACTILE GESTIPOS SCP 15P</td><td>1</td><td>658,33 $</td><td>9000</td><td>599,08 $</td></tr>
+<tr><td></td><td>ACC-BAT-TRP-550VAUSB</td><td>Batterie UPS TRIPP-LITE 550VA AVR USB</td><td>1</td><td>187,58 $</td><td>9000</td><td>170,70 $</td></tr>
+<tr><td></td><td>ACC-BRK-PEE-SAL724</td><td>SUPPORT ARTICULÉ PEERLESS, SMARTMOUNT VESA, 75 AND 100MM</td><td>3</td><td>59,98 $</td><td>9000</td><td>163,75 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/ECRCLONE</td><td>INSTALLATION/CONFIGURATION ECRAN CLONE VELOCE</td><td>1</td><td>115,00 $</td><td>0,000</td><td>115,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>KIT-HUB-FOR-BENNY</td><td>KIT FORTINET BENNY&amp;CO</td><td>1</td><td>5 379,30 $</td><td>9000</td><td>4 895,16 $</td></tr>
+<tr><td></td><td>TEM-CNT-NEO-FORTIMAN</td><td>GESTION FORTINET (ANNUEL)</td><td>3</td><td>65,00 $</td><td>0,000</td><td>195,00 $</td></tr>
+<tr><td></td><td>TEM-PRE-NEO-CONFIG</td><td>INSTALLATION/CONFIGURATION</td><td>1</td><td>420,00 $</td><td>0,000</td><td>420,00 $</td></tr>
+<tr><td>T</td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>LOG-MOD-VEL-UN_BENNY</td><td>VELOCE PLAN BENNY PAIEMENT ET LOGICIEL ILLIMITÉ 209$/MOIS</td><td>1</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>LOG-LIC-VEL-CLEVEL_V</td><td>VELOCE- CLE D'ACTIVATION VIRTUELLE</td><td>1</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>LOG-MOD-VEL-SATEL</td><td>LOGICIEL POINT DE VENTE</td><td>8</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>LOG-MOD-VEL-INTPAY</td><td>LICENCE VELPAY VELOCE</td><td>10</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>TEM-PRE-NEO-IC/PAYFACTO</td><td>INSTALLATION /CONFIGURATION PAYFACTO</td><td>1</td><td>230,00 $</td><td>0,000</td><td>230,00 $</td></tr>
+<tr><td></td><td>TEM-CNT-PAY-STP</td><td>INSTALLATION PINPAD</td><td>12</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td>TEM-GAR-NEO-INFO</td><td>SUPPORT INFORMATIQUE INCLUS 1 AN</td><td>2</td><td></td><td>0,000</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td>0,000</td><td></td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_MTY_SAT__2__" style="display:none">
+<div class="sheet-title">MTY SERVICE AUX TABLES</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">ÉQUIPEMENTS</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT SERVEUR RAZOR 16GB 500GB</td><td class="col-prod">KIT-TOU-RAZ-RPC3650</td><td class="col-notes">15% D'ESCOMPTES</td></tr>
+<tr class="bold-row"><td class="col-desc">LICENCE MICROSOFT OFFICE</td><td class="col-prod">LOG-LIC-MIC-OFFICE</td><td class="col-notes">PAS D'ESCOMPTE</td></tr>
+<tr class="bold-row"><td class="col-desc">KIT TOUCH DYNAMIC ACROBAT J6412</td><td class="col-prod">KIT-AIO-TOU-ACROJ6412</td><td class="col-notes">15% D'ESCOMPTES</td></tr>
+<tr class="bold-row"><td class="col-desc">LECTEUR DE CARTE ACROBAT</td><td class="col-prod">ACC-LEC-TOU-ACROBAT</td><td class="col-notes">15% D'ESCOMPTES</td></tr>
+<tr class="bold-row"><td class="col-desc">IMPRIMANTE CITIZEN S751 SÉRIE</td><td class="col-prod">KIT-IMP-CTZ-S751</td><td class="col-notes">15% D'ESCOMPTES</td></tr>
+<tr class="bold-row"><td class="col-desc">TABLETTE TD QUEST VIII 8'' SANS MSR</td><td class="col-prod">POS-MOB-TOU-QVIII</td><td class="col-notes">15% D&quot;ESCOMPTES</td></tr>
+<tr class="section-header"><td colspan="3">LOGICIEL MAITRE'D - TUTTI FRUTTI, MIKES, BEN &amp; FLO, BATON ROUGE, SCORES, MADISON, PIZZA DELIGHT, TURTLE JACK</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">MISE A JOUR MEVWEB</td></tr>
+<tr class="bold-row"><td class="col-desc">MISE A JOUR SAAS MEVWEB</td><td class="col-prod">LOG-MOD-PSR-MTYMDUP</td><td class="col-notes"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">NOUVEAU CLIENT SEULEMENT</td></tr>
+<tr class="bold-row"><td class="col-desc">LICENCE MAITRE'D 1ER POS</td><td class="col-prod">KIT-MOD-PSR-MTYMD</td><td class="col-notes">115$/MOIS</td></tr>
+<tr class="bold-row"><td class="col-desc">AJOUT POS 2 À 5  MAITRE'D</td><td class="col-prod">LOG-MOD-PSR-POS_MTY</td><td class="col-notes">25$/MOIS/POS</td></tr>
+<tr class="bold-row"><td class="col-desc">AJOUT POS 6 ET +</td><td class="col-prod">LOG-MOD-PSR-POS_MTY6+</td><td class="col-notes">SANS FRAIS</td></tr>
+<tr class="bold-row"><td class="col-desc">MODULE INVENTAIRE MAITRE'D</td><td class="col-prod">LOG-MOD-PSR-INV_MTY</td><td class="col-notes">15$/MOIS</td></tr>
+<tr class="bold-row"><td class="col-desc">LICENCE KDS ILLIMITÉ MAITRE'D</td><td class="col-prod">LOG-MOD-PSR-KDS_MTY</td><td class="col-notes">21$/MOIS</td></tr>
+<tr class="section-header"><td colspan="3">LOGICIEL VELOCE - CASA GREQUE</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">MISE A JOUR MEVWEB</td></tr>
+<tr class="bold-row"><td class="col-desc">MISE A JOUR SAAS MEVWEB</td><td class="col-prod">LOG-MOD-VEL-MTYVELUP</td><td class="col-notes"></td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">NOUVEAU CLIENT SEULEMENT</td></tr>
+<tr class="bold-row"><td class="col-desc">LICENCE VELOCE 1ER POS</td><td class="col-prod">KIT-MOD-VEL-MTYVEL</td><td class="col-notes">115$/MOIS</td></tr>
+<tr class="bold-row"><td class="col-desc">AJOUT POS 2 À 5 VELOCE</td><td class="col-prod">LOG-MOD-VEL-POS_MTY</td><td class="col-notes">25$/MOIS/POS</td></tr>
+<tr class="bold-row"><td class="col-desc">AJOUT POS 6 ET +</td><td class="col-prod">LOG-MOD-VEL-POS_MTY6+</td><td class="col-notes">SANS FRAIS</td></tr>
+<tr class="bold-row"><td class="col-desc">MODULE INVENTAIRE VELOCE</td><td class="col-prod">LOG-MOD-VEL-INV_MTY</td><td class="col-notes">15$/MOIS</td></tr>
+<tr class="bold-row"><td class="col-desc">LICENCE KDS ILLIMITÉ VELOCE</td><td class="col-prod">LOG-MOD-VEL-KDS_MTY</td><td class="col-notes">21$/MOIS</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'OEUVRES</td></tr>
+<tr class="section-header"><td colspan="3">FRAIS DE MAIN D'ŒUVRE STANDARD</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_ADAPTIVE_NETWORK" style="display:none">
+<div class="sheet-title">EXCLUSIVE NETWORKS</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">ÉQUIPEMENTS</td></tr>
+<tr class="bold-row"><td class="col-desc">ROUTER BUSINESS CONNECT 30MBPS</td><td class="col-prod">KIT-HUB-ADA-BUS30/M</td><td class="col-notes">150$/MOIS COMPRENDS, ROUTER, MODEM LTE ET PLAN DE DONNÉES 3GB</td></tr>
+<tr class="bold-row"><td class="col-desc"></td><td class="col-prod"></td><td class="col-notes">CE ROUTER FONCTIONNE AVEC N'IMPORTE QUEL ACCESS POINT POUR LA GESTION DE RÉSEAU</td></tr>
+<tr class="section-header" style="background-color:#FFFF0020;"><td colspan="3">MAIN D'OEUVRES</td></tr>
+<tr class="bold-row"><td class="col-desc">INSTALLATION/CONFIGURATION ROUTER ADAPTIVE</td><td class="col-prod">TEM-PRE-NEO-IC/ADAPTIVE</td><td class="col-notes">230$ + DÉPLACEMENT SI VENDU SEUL</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_UNIFI" style="display:none">
+<div class="sheet-title">UNIFI</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">ÉQUIPEMENTS</td></tr>
+<tr class="bold-row"><td class="col-desc">AP UNIFI U6 LITE</td><td class="col-prod">ACC-HUB-UNI-U6_LITE</td><td class="col-notes">AP INTÉRIEUR</td></tr>
+<tr class="bold-row"><td class="col-desc">AP UNIFI U6 PRO</td><td class="col-prod">ACC-HUB-UNI-U6_PRO</td><td class="col-notes">AP INTÉRIEUR/EXTÉRIEUR</td></tr>
+<tr class="bold-row"><td class="col-desc">INJECTEUR POE</td><td class="col-prod">ACC-HUB-UNI-POEADAPTER</td><td class="col-notes">1X PAR AP</td></tr>
+<tr class="bold-row"><td class="col-desc">CABLE RJ45 6 PIEDS</td><td class="col-prod">WIR-CAB-ACS-6FTRJ45B</td><td class="col-notes">1X AP</td></tr>
+<tr class="bold-row"><td class="col-desc">ROUTEUR MIKROTIK</td><td class="col-prod">ACC-HUB-MIK-RB759GR3</td><td class="col-notes">INCLUS LA POSSIBILITÉ D'ADRESSE IP FIXE (4PORTS)</td></tr>
+<tr class="section-header"><td colspan="3">MAIN D'OEUVRES</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION ROUTER MIKROTIK</td><td class="col-prod">TEM-PRE-NEO-IC/MIKROTIK</td><td class="col-notes">230$</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION FORTI AP 1ER</td><td class="col-prod">TEM-PRE-NEO-IC/FORTAP</td><td class="col-notes">115$/ POUR LE 1ER AP + DÉPLACEMENT SI PAS NOUVELLE INSTALLATION</td></tr>
+<tr><td class="col-desc">INSTALLATION/CONFIGURATION FORTI AP 2 ET +</td><td class="col-prod">TEM-PRE-NEO-IC/FORTAP2</td><td class="col-notes">60$/AP POUR LE DEUXIÈME ET +</td></tr>
+</tbody></table>
+
+</div>
+<div class="tab-content" id="tab_PAGETTE" style="display:none">
+<div class="sheet-title">PAGETTE</div>
+<table>
+<thead><tr><th class="col-desc">Description</th><th class="col-prod"># Produit</th><th class="col-notes">Notes</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="3">PAGETTE LRS</td></tr>
+<tr class="bold-row"><td class="col-desc">LRS T9550LCK PAGER 1-5</td><td class="col-prod">ACC-PAG-LRS-KSTAFF5</td><td class="col-notes">KIT DEPART-CONSOLE JUSQU’À 20 PAG-5 PAGETTES-CHARGEUR</td></tr>
+<tr class="bold-row"><td class="col-desc">LRS (5PACK)SP4 STAFF/SERVER PGRS 6-10</td><td class="col-prod">ACC-PAG-LRS-ADST610</td><td class="col-notes">AJOUT 5 PAGETTES 6 A 10 INCLUANT CHARGEUR</td></tr>
+<tr class="bold-row"><td class="col-desc">TRANSMETTEUR TX-9560EZ</td><td class="col-prod">ACC-PAG-LRS-TX9560EZ</td><td class="col-notes">2e console si client veut une 2e pour caller les meme pagettes</td></tr>
+<tr class="bold-row"><td class="col-desc">RECHARGEABLE STAFF/SERVER PGR</td><td class="col-prod">ACC-PAG-LRS-RX_SP4</td><td class="col-notes">PAGETTE A L'UNITÉ</td></tr>
+<tr class="bold-row"><td class="col-desc">CLIPS POUR PAGETTE (comm.minimum12)</td><td class="col-prod">REP-PIE-LRS-K20014</td><td class="col-notes">CLIP POUR PAGETTE, (ils sont inclus avec la pagette a l'achat.)</td></tr>
+<tr class="bold-row"><td class="col-desc">CHARGEUR 1-10 POUR PAGER LRS</td><td class="col-prod">ACC-PAG-LRS-CH-R9_10</td><td class="col-notes">BASE DE RECHARGE DE REMPLACEMENT</td></tr>
+</tbody></table>
+
+</div>
+
+</div>
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Résultats de recherche</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="result-count none" id="resultCount">0 résultat</span>
+        <button class="btn-close-modal" onclick="closeModal()">×</button>
+      </div>
+    </div>
+    <div class="modal-filters" id="modalFilters"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">💡 Cliquez sur <strong>« Aller à l'onglet »</strong> pour naviguer directement vers la section.</div>
+  </div>
+</div>
+<script>
+const INDEX = [{"sheet": "ÉQUIPEMENTS", "desc": "KIT SERVEUR RAZOR ELKHART LAKE 16GB 256GB", "prod": "KIT-TOU-RAZ-RPCC620", "notes": "N'INCLUS PAS CLAVIER/SOURIS ET CLÉ USB  VELOCE SEULEMENT OU  PC ADMIN", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT SERVEUR RAZOR I3 8GB 256GB", "prod": "KIT-TOU-RAZ-RPCG820", "notes": "Serveur MD MAX 3 POS N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT SERVEUR RAZOR 16GB 500GB", "prod": "KIT-TOU-RAZ-RPC3650", "notes": "Serveur MD + plus de 4 pos N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_PC_SpecSheet03.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MINI SERVEUR HP PRODESK", "prod": "KIT-SLI-HPK-MINIPRODESK", "notes": "N'INCLUS PAS CLAVIER/SOURIS PRODUIT REFURBISH, GARANTI 60 JOURS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SERVEUR/POS AIO TD PULSE", "prod": "KIT-AIO-TOU-PULSESER", "notes": "SER/POS POUR MD (1POS) OU VELOCE N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://www.touchdynamic.com/wp-content/uploads/2024/03/TD_Pulse-Ultra-WS_Spec.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MASTER AIO TD RAZOR I3 8GB 500GB", "prod": "KIT-AIO-SER-RAZOR_SMS", "notes": "SER/POS POUR MAITRE'D MAX 2 POS N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MASTER AIO TD RAZOR I3 16GB 500GB", "prod": "KIT-AIO-SER-RAZOR_AIOI3", "notes": "SER/POS POUR  MAITRE'D 3 POS ET PLUS N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MASTER AIO TOSHIBA TCX810 8B", "prod": "KIT-AIO-SER-TOSHTCX810", "notes": "SER/POS POUR MAITRE'D MAX 2 POS N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MASTER AIO TOSHIBA TCX810 16B", "prod": "KIT-AIO-SER-TOSHTCX810_16GB", "notes": "SER/POS POUR  MAITRE'D 3 POS ET PLUS N'INCLUS PAS CLAVIER/SOURIS", "extra": "https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "MICROSOFT OFFICE", "prod": "LOG-LIC-MIC-OFFICE", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ECRAN VIEWSONIC  22'' LED FULL HD", "prod": "ACC-ECR-VWS-VA2246MH", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT CLAVIER SOURIS FRANÇAIS", "prod": "ACC-CLA-MIC-C+S_FR", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT CLAVIER SOURIS ANGLAIS", "prod": "ACC-CLA-MIC-C+S_AN", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SWITCH 8 PORTS", "prod": "ACC-HUB-TPL-SG1008", "notes": "SELON LE NOMBRE DE PERIPHERIQUE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SWITCH 16 PORTS", "prod": "ACC-HUB-TPL-SG1016", "notes": "SELON LE NOMBRE DE PERIPHERIQUE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SWITCH 24 PORTS", "prod": "ACC-HUB-TPL-SG1024", "notes": "SELON LE NOMBRE DE PERIPHERIQUE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SWITCH 48 PORTS", "prod": "ACC-HUB-NET-48P_NET", "notes": "SELON LE NOMBRE DE PERIPHERIQUE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "BATTERIE UPS TRIPP LITE 750", "prod": "ACC-BAT-TRP-750VAUSB", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT TOUCH DYNAMIC NEXUS NX1560", "prod": "KIT-AIO-TOU-NX1560", "notes": "", "extra": "https://www.touchdynamic.com/wp-content/uploads/2024/07/TD_156Nexus_AIO_Android_SpecSheet5.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT TOUCH DYNAMIC FUSION", "prod": "POS-MOB-TOU-FUSION", "notes": "POS/TABLETTE", "extra": "https://www.touchdynamic.com/wp-content/uploads/2024/09/TD_FusionHybrid_SpecSheet5.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "LECTEUR DE CARTE NEXUS", "prod": "ACC-LEC-TOU-MSRNEXUS", "notes": "NEXUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ECRAN CLIENT 11.6'' NEXUS", "prod": "ACC-AFF-TOU-NX11DISP", "notes": "NEXUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "AFFICHEUR 2X20 PULSE", "prod": "ACC-AFF-TOU-ULTRA", "notes": "TD PULSE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "LECTEUR DE CARTE ACROBAT", "prod": "ACC-LEC-TOU-ACROBAT", "notes": "J1900 ET J6412", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "AFFICHEUR 2X20 ACROBAT", "prod": "ACC-AFF-TOU-ACROBAT", "notes": "J1900 ET J6412", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ECRAN CLIENT 11.6''", "prod": "ACC-AFF-TOU-RZ11,6_AR", "notes": "J6412 SEULEMENT", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ECRAN CLIENT 8''", "prod": "ACC-ECR-TOU-ECR8", "notes": "J1900 ET I3 SEULEMENT", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "DONGLE WIFI TD", "prod": "REP-CAR-TOU-WIFI_RAZ", "notes": "PULSE, RAZOR ET AUTRES PRODUITS TOUCH DYNAMIC", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SUPPORT MURAL ARTICULÉ", "prod": "ACC-BRK-PEE-SAL724", "notes": "POUR POS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "BATTERIE 550V USB", "prod": "ACC-BAT-TRP-550VAUSB", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "TIROIR CAISSE APG VASARIO", "prod": "KIT-TIR-APG-BL1616", "notes": "COMPREND CABLE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT TOUCH DYNAMIC RAZOR CELERON", "prod": "KIT-AIO-TOU-RAZOR_AIOC", "notes": "COMPRENDS CABLE, BATT", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT TOUCH DYNAMIC RAZOR I3", "prod": "KIT-AIO-TOU-RAZOR_AIOI3", "notes": "COMPRENDS CABLE, BATT", "extra": "https://www.touchdynamic.com/wp-content/uploads/2025/06/TD_Razor_AIO_SpecSheet04.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT POUR BRACKET MURAL RAZOR", "prod": "REP-BRK-TOU-TD_RAZOR", "notes": "SEULEMENT LE PANEL BESOIN D'UN WALL MOUNT", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "USB A SÉRIE POUR RAZOR", "prod": "WIR-CAB-POS-USBTODB9", "notes": "NECESSAIRE POUR UNE 3IEME PORT COM", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "LECTEUR DE CARTE RAZOR", "prod": "ACC-LEC-TOU-MSRRAZOR", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SCANNER 2D POUR RAZOR", "prod": "ACC-SCA-TOU-RAZOR", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "AFFICHEUR 2X20", "prod": "ACC-AFF-TOU-RZ2X20", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ÉCRAN CLIENT 11.6''", "prod": "ACC-AFF-TOU-RZ11,6", "notes": "VIENS AVEC LE BRACKET ET CABLE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ÉCRAN CLIENT 15.6''", "prod": "ACC-AFF-TOU-RZ15,6", "notes": "VIENS AVEC LE BRACKET ET CABLE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "BATTERIE 550V USB", "prod": "ACC-BAT-TRP-550VAUSB", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "TIROIR CAISSE APG VASARIO", "prod": "KIT-TIR-APG-BL1616", "notes": "COMPREND CABLE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT TOUCH TOSHIBA TCX810", "prod": "KIT-AIO-TOS-TCX810E6C", "notes": "TOU-NX", "extra": "https://tgcs04.toshibacommerce.com/cs/groups/internet/documents/document/agvl/dc1j/~edisp/tcx810datasheet-cafr.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "LECTEUR DE CARTE TOSHIBA", "prod": "ACC-LEC-TOS-TOSHIBA", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ÉCRAN CLIENT 10.1''", "prod": "ACC-AFF-TOS-TOS10,1", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "BRACKET POUR ÉCRAN CLIENT", "prod": "ACC-BRK-TOS-FC1006", "notes": "OBLIGATOIRE AVEC L'ÉCRAN CLIENT 10.1", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "AFFICHEUR 2X20", "prod": "ACC-AFF-TOS-TOSHIBA", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT PAPIER ET ENCREUR STAR", "prod": "KIT-PAP-BSP-PAPERCSTAR", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT PAPIER ET ENCREUR EPSON", "prod": "KIT-PAP-BSP-PAPERC", "notes": "OBLIGATOIRE DANS VOS SOUMISSION NOUVEAU CLIENT", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "KIT MEV", "prod": "KIT-MEV-IBM-MEV2", "notes": "COMPRENDS CABLE DB9", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "CLAVIER MEV", "prod": "ACC-CLA-IBM-CLAMEV", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "", "prod": "IMPRIMANTE CUISINE", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE TMU220 RÉSEAU", "prod": "KIT-IMP-EPS-TMU220BE", "notes": "COMPREND COMPOSANTES", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE STAR 742B RÉSEAU", "prod": "KIT-IMP-STA-SP742B", "notes": "COMPREND COMPOSANTES", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "", "prod": "IMPRIMANTE FACTURE", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE CITIZEN S751 SÉRIE", "prod": "KIT-IMP-CTZ-S751", "notes": "COMPREND COMPOSANTES", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE CITIZEN CTS-751 RÉSEAU", "prod": "KIT-IMP-CTZ-CTS751_RESEAU", "notes": "IMPRIMANTE FACTURE RÉSEAU (PRÉVOIR SWITCH OU PRISE RÉSEAU)", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE CITIZEN CTS-351 SÉRIE", "prod": "KIT-IMP-CTZ-E351", "notes": "IMPRIMANTE FACTURE SÉRIE 377$", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "INTERFACE RÉSEAU CTZ S751", "prod": "REP-CAR-CTZ-RES_CT-S751", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "INTERFACE RÉSEAU EPSON", "prod": "REP-CAR-EPS-RESEAU", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "LECTEUR BIOMETRIQUE", "prod": "ACC-LEC-BLU-URU4500B", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ÉCRAN TACTIL 15'' TD", "prod": "ACC-ECR-TOU-PM1510", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "IMPRIMANTE TM-88 SÉRIE", "prod": "KIT-IMP-EPS-TM88VSE", "notes": "NON DISPONIBLE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "SCANNER ZEBRA 2D POUR CODE BARRE ET CELL", "prod": "ACC-LEC-ZEB-DS2208", "notes": "POUR FREEBEES OU AUTRE CC OU FIDELISATION USB", "extra": "https://www.zebra.com/fr/fr/products/spec-sheets/scanners/general-purpose-scanners/handheld/ds2200-series.html"}, {"sheet": "ÉQUIPEMENTS", "desc": "SCANNER ZEBRA 2D MULTILIGNE", "prod": "ACC-SCA-ZEB-DS9308U", "notes": "POUR DÉPANNEUR (POUR LIRE CODE DE BALANCE/MULTI-LIGNE) USB", "extra": "https://www.zebra.com/fr/fr/products/spec-sheets/scanners/general-purpose-scanners/ds9300-series.html"}, {"sheet": "ÉQUIPEMENTS", "desc": "BALANCE AVERY BREKNELL 6710U 7.5KG", "prod": "ACC-BAL-WEI-6710", "notes": "INTÉGRATION POS COMPTOIR", "extra": "https://www.brecknellscales.com/en/wp-content/uploads/sites/10/2022/11/6700USeries_RoW_L_100106.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "CABLE SÉRIE RS232 CBL", "prod": "WIR-CAB-WEI-CABRS232", "notes": "OBLIGATOIRE AVEC BALANCE", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "POLE DISPLAY", "prod": "ACC-BAL-WEI-6710POL", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "BALANCE AVERY BREKNELL 6720 15KG", "prod": "ACC-BAL-WEI-6720", "notes": "INT. POS + UN REMOTE DISPLAY", "extra": "https://www.brecknellscales.com/en/wp-content/uploads/sites/10/2022/11/6700USeries_RoW_L_100106.pdf"}, {"sheet": "ÉQUIPEMENTS", "desc": "POLE POUR REMOTE DISPLAY", "prod": "ACC-BAL-WEI-POT6710", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "LOGICIEL SCALE LINK", "prod": "LOG-LIC-ISH-SLP5", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI3 1 LIGNE BENCH", "prod": "ACC-BAL-ISH-UNI3BL1", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI3 2 LIGNE BENCH 15KG", "prod": "ACC-BAL-ISH-UNI3BL2_15", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI3 2 LIGNE BENCH 30KG", "prod": "ACC-BAL-ISH-UNI3BL2", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI3 1 LIGNE POTEAU", "prod": "ACC-BAL-ISH-UNI3PL1", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI3 2 LIGNE POTEAU", "prod": "ACC-BAL-ISH-UNI3PL2", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI7 BENCH", "prod": "ACC-BAL-ISH-UNI7PLAT", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI7 POTEAU", "prod": "ACC-BAL-ISH-UNI7POT", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI5 BENCH", "prod": "ACC-BAL-ISH-UNI5PLAT", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI5 POTEAU", "prod": "ACC-BAL-ISH-UNI5POT", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "ISHIDA UNI5 EV1", "prod": "ACC-BAL-ISH-UNI5EV1", "notes": "SANS-FILS PAS INCLUS", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "MAGELLAN 8400", "prod": "ACC-BAL-MGL-MGL8400", "notes": "BALANCE/SCANNER COMPTOIR 5FACE SCANNING", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "MAGELLAN 8500", "prod": "ACC-BAL-MGL-MGL8500", "notes": "BALANCE/SCANNER COMPTOIR 6FACE SCANNING", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "CERTIFICATION BALANCE 1", "prod": "TEM-PRO-PMC-CERT1", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "CERTIFICATION BALANCE 2 ET +", "prod": "TEM-PRO-PMC-CERT2", "notes": "", "extra": ""}, {"sheet": "ÉQUIPEMENTS", "desc": "CERTIFICAT EXAMEN INSTRUMENT", "prod": "TEM-PRO-PMC-CERTINST", "notes": "", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE EXPRESS", "prod": "LOG-LIC-VEL-EXPRESS", "notes": "LICENCE SERVICE RAPIDE, 1 POS 69,95$/M", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE EXPRESS POS ADD-ON", "prod": "LOG-MOD-VEL-POS_EXP", "notes": "20$/M/POS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE CORE", "prod": "LOG-LIC-VEL-CORE", "notes": "99,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE CORE POS ADD-ON", "prod": "LOG-MOD-VEL-POS_COR", "notes": "30$/M/POS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE PRO", "prod": "LOG-LIC-VEL-PRO", "notes": "149,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE PRO POS ADD-ON", "prod": "LOG-MOD-VEL-POS_PRO", "notes": "35$/M/POS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE ENTREPRISE", "prod": "LOG-LIC-VEL-ENTREPRISE", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE ENTREPRISE POS ADD-ON", "prod": "LOG-MOD-VEL-POS_ENT", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE VELPAY", "prod": "LOG-MOD-VEL-PAY_ADD", "notes": "25$/M/VELPAY", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTERFACE BAR VELMIX ALCOOL", "prod": "LOG-MOD-VEL-ALC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTERFACE BAR VELMIX LC BIERE EN FUT", "prod": "LOG-MOD-VEL-BIERE_LC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTERFACE BAR VELMIX LM BIERE EN FUT", "prod": "LOG-MOD-VEL-BIERE_LM", "notes": "69$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE VELCLOUD", "prod": "LOG-MOD-VEL-VELCLOUD", "notes": "30$/MOIS/RESTO  **50% D'ESCOMPTE AVEC PAY INCLUS AVEC PRO**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTEGRATION CARTE-CADEAU/FIDELITE", "prod": "LOG-MOD-VEL-CCF_API", "notes": "10$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE LOGICIEL KDS", "prod": "LOG-MOD-VEL-CVM", "notes": "20$/MOIS/KDS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4", "prod": "LOG-MOD-VEL-GLOBAL", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+", "prod": "LOG-MOD-VEL-GLOBAL5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4", "prod": "LOG-MOD-VEL-MONERIS", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+", "prod": "LOG-MOD-VEL-MONERIS5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE BORNE COMAMNDE (ISHOPFOOD)", "prod": "LOG-MOD-VEL-BORNE", "notes": "75$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE ECOM ISHOP (ISHOPFOOD)", "prod": "LOG-MOD-VEL-CEL", "notes": "99$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION INVENTAIRE TIERCE PARTIE", "prod": "LOG-MOD-VEL-INVENT_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE INVENTAIRE", "prod": "LOG-MOD-VEL-INVENTAIRE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTERFACE HOTEL/PMS", "prod": "LOG-MOD-VEL-PMS150", "notes": "150$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE COMPTE CLIENT ET PROMO", "prod": "LOG-MOD-VEL-CCP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE D'AFFICHAGE CLIENT", "prod": "LOG-MOD-VEL-CFD", "notes": "10$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE COMPTABLE", "prod": "LOG-MOD-VEL-COMP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTEGRATION PAIE", "prod": "LOG-MOD-VEL-PAIE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "INTEGRATION RESERVATION TIERCE PARTIE", "prod": "LOG-MOD-VEL-RES_Api", "notes": "15$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTEGRATION SADIE", "prod": "LOG-MOD-VEL-SADIE_API", "notes": "20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTEGRATION TALKSOON", "prod": "LOG-MOD-VEL-TALKSOON_API", "notes": "20$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE MODULE BILLETERIE", "prod": "LOG-MOD-VEL-TICKET", "notes": "20$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VELOCE", "desc": "MAITRE D VELOCE INTEGRATION ECOM PAIEMENT", "prod": "LOG-MOD-VEL-ECOM_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE EXPRESS", "prod": "LOG-LIC-CLA-EXPRESS", "notes": "LICENCE SERVICE RAPIDE, 1 POS 69,95$/M", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE EXPRESS POS ADD-ON", "prod": "LOG-MOD-CLA-POS_EXP", "notes": "20$/M/POS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE CORE", "prod": "LOG-LIC-CLA-CORE", "notes": "99,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE CORE POS ADD-ON", "prod": "LOG-MOD-CLA-POS_COR", "notes": "30$/M/POS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE PRO", "prod": "LOG-LIC-CLA-PRO", "notes": "149,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE PRO POS ADD-ON", "prod": "LOG-MOD-CLA-POS_PRO", "notes": "35$/M/POS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE ENTREPRISE", "prod": "LOG-LIC-CLA-ENTREPRISE", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE ENTREPRISE POS ADD-ON", "prod": "LOG-MOD-CLA-POS_ENT", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTERFACE BAR VELMIX ALCOOL", "prod": "LOG-MOD-CLA-ALC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTERFACE BAR VELMIX LC BIERE EN FUT", "prod": "LOG-MOD-CLA-BIERE_LC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTERFACE BAR VELMIX LM BIERE EN FUT", "prod": "LOG-MOD-CLA-BIERE_LM", "notes": "69$/M  **50% D'ESCOMPTE AVEC PAY** VERSION PRO SEULEMENT", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASIQUE APPLICATION DATABOARD", "prod": "LOG-MOD-CLA-DATABOARD", "notes": "30$/MOIS/RESTO  **50% D'ESCOMPTE AVEC PAY INCLUS AVEC PRO**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTEGRATION CARTE-CADEAU/FIDELITE", "prod": "LOG-MOD-CLA-CCF_API", "notes": "10$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE LOGICIEL KDS", "prod": "LOG-MOD-CLA-CVM", "notes": "20$/MOIS/KDS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4", "prod": "LOG-MOD-CLA-GLOBAL", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+", "prod": "LOG-MOD-CLA-GLOBAL5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4", "prod": "LOG-MOD-CLA-MONERIS", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+", "prod": "LOG-MOD-CLA-MONERIS5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE BORNE COMAMNDE (ISHOPFOOD)", "prod": "LOG-MOD-CLA-BORNE", "notes": "75$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE ECOM ISHOP (ISHOPFOOD)", "prod": "LOG-MOD-CLA-CEL", "notes": "99$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION INVENTAIRE TIERCE PARTIE", "prod": "LOG-MOD-CLA-INVENT_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE MODULE INVENTAIRE", "prod": "LOG-MOD-CLA-INVENTAIRE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTERFACE HOTEL/PMS", "prod": "LOG-MOD-CLA-PMS150", "notes": "150$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE MODULE COMPTE CLIENT ET PROMO", "prod": "LOG-MOD-CLA-CCP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE MODULE D'AFFICHAGE CLIENT", "prod": "LOG-MOD-CLA-CFD", "notes": "10$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE MODULE COMPTABLE", "prod": "LOG-MOD-CLA-COMP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTEGRATION PAIE", "prod": "LOG-MOD-CLA-PAIE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "INTEGRATION RESERVATION TIERCE PARTIE", "prod": "LOG-MOD-CLA-RES_Api", "notes": "15$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTEGRATION SADIE", "prod": "LOG-MOD-CLA-SADIE_API", "notes": "20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTEGRATION TALKSOON", "prod": "LOG-MOD-CLA-TALKSOON_API", "notes": "20$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-MAITRE'D", "desc": "MAITRE D CLASSIQUE INTEGRATION ECOM PAIEMENT", "prod": "LOG-MOD-CLA-ECOM_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO EXPRESS", "prod": "LOG-LIC-VIR-EXPRESS", "notes": "LICENCE SERVICE RAPIDE, 1 POS 69,95$/M", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO EXPRESS POS ADD-ON", "prod": "LOG-MOD-VIR-POS_EXP", "notes": "20$/M/POS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO CORE", "prod": "LOG-LIC-VIR-CORE", "notes": "99,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO CORE POS ADD-ON", "prod": "LOG-MOD-VIR-POS_COR", "notes": "30$/M/POS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO PRO", "prod": "LOG-LIC-VIR-PRO", "notes": "149,95$/M, 1 POS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO PRO POS ADD-ON", "prod": "LOG-MOD-VIR-POS_PRO", "notes": "35$/M/POS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO ENTREPRISE", "prod": "LOG-LIC-VIR-ENTREPRISE", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO ENTREPRISE POS ADD-ON", "prod": "LOG-MOD-VIR-POS_ENT", "notes": "SUR DEMANDE", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO VELPAY", "prod": "LOG-MOD-VEL-PAY_ADD", "notes": "25$/M/VELPAY", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTERFACE BAR VELMIX ALCOOL", "prod": "LOG-MOD-VIR-ALC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTERFACE BAR VELMIX LC BIERE EN FUT", "prod": "LOG-MOD-VIR-BIERE_LC", "notes": "99$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTERFACE BAR VELMIX LM BIERE EN FUT", "prod": "LOG-MOD-VIR-BIERE_LM", "notes": "69$/M  **50% D'ESCOMPTE AVEC PAY PREND FORFAIT PRO**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTEGRATION CARTE-CADEAU/FIDELITE", "prod": "LOG-MOD-VIR-CCF_API", "notes": "10$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO LOGICIEL KDS", "prod": "LOG-MOD-VIR-CVM", "notes": "20$/MOIS/KDS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 1-4", "prod": "LOG-MOD-VIR-GLOBAL", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE GLOBAL 5+", "prod": "LOG-MOD-VIR-GLOBAL5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 1-4", "prod": "LOG-MOD-VIR-MONERIS", "notes": "99$/MOIS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION DE PAIEMENT TIERCE PARTIE MONERIS 5+", "prod": "LOG-MOD-VIR-MONERIS5", "notes": "149$/MOIS", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO BORNE COMAMNDE (ISHOPFOOD)", "prod": "LOG-MOD-VIR-BORNE", "notes": "75$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO ECOM ISHOP (ISHOPFOOD)", "prod": "LOG-MOD-VIR-CEL", "notes": "99$/MOIS  **25% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION INVENTAIRE TIERCE PARTIE", "prod": "LOG-MOD-VIR-INVENT_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO MODULE INVENTAIRE", "prod": "LOG-MOD-VIR-INVENTAIRE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTERFACE HOTEL/PMS", "prod": "LOG-MOD-VIR-PMS150", "notes": "150$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO MODULE COMPTE CLIENT ET PROMO", "prod": "LOG-MOD-VIR-CCP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO MODULE D'AFFICHAGE CLIENT", "prod": "LOG-MOD-VIR-CFD", "notes": "10$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO MODULE COMPTABLE", "prod": "LOG-MOD-VIR-COMP", "notes": "25$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTEGRATION PAIE", "prod": "LOG-MOD-VIR-PAIE", "notes": "50$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "INTEGRATION RESERVATION TIERCE PARTIE", "prod": "LOG-MOD-VIR-RES_Api", "notes": "15$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTEGRATION SADIE", "prod": "LOG-MOD-VIR-SADIE_API", "notes": "20$/MOIS  **100% D'ESCOMPTE AVEC PRO ET ENTREPRISE**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTEGRATION TALKSOON", "prod": "LOG-MOD-VIR-TALKSOON_API", "notes": "20$/MOIS  **50% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO SUITE BUREAU CHEF", "prod": "LOG-MOD-VIR-HO_SUITE", "notes": "30$/MOIS/RESTO", "extra": ""}, {"sheet": "SAAS-VIRTUO", "desc": "MAITRE D VIRTUO INTEGRATION ECOM PAIEMENT", "prod": "LOG-MOD-VIR-ECOM_API", "notes": "20$/MOIS  **20% D'ESCOMPTE AVEC PAY**", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 1 POS", "prod": "KIT-MOD-PSR-SOLO_PP2", "notes": "149$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 2-4 POS", "prod": "KIT-MOD-PSR-FOR2-4", "notes": "249$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 5-10 POS", "prod": "KIT-MOD-PSR-FOR5-10", "notes": "299$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 11-20 POS", "prod": "KIT-MOD-PSR-FOR11-20", "notes": "399$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 20 +", "prod": "", "notes": "PRIX SUR DEMANDE", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "LOGICIEL POS UNITAIRE", "prod": "LOG-MOD-PSR-SAT1_8V7", "notes": "", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "ACCES AUX DONÉES SERVEUR MAITRE'D", "prod": "NEO-MOD-MD-NOPOS", "notes": "45$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT PAY/POS À L'UTILISATION", "prod": "KIT-MOD-PSR-BUNFREE", "notes": "0$ POS 2.69% + 0.12$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT ESSENTIELS PAY/POS 1-4", "prod": "KIT-MOD-PSR-BUNLITE", "notes": "99$ POS 2.39% + 0.10$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT PLUS PAY/POS 5-10", "prod": "KIT-MOD-PSR-BUNPLUS", "notes": "199$ POS 2.29% + 0.08$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT ENTREPRISE PAY/POS 11+", "prod": "KIT-MOD-PSR-BUNGROWTH", "notes": "299$ POS 2.19% + 0.07$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT MULTI-SITE", "prod": "KIT-MOD-PSR-MULTISITES", "notes": "IL FAUT AJOUTER LES LOG-MOD-PSR-SAT1_8V7", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION CARTE CADEAU/FIDELITÉ FREEBEES", "prod": "LOG-MOD-PSR-CCFFREEBEES", "notes": "0$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION CARTE CADEAU/FIDELITÉ", "prod": "LOG-MOD-PSR-CCF_AP", "notes": "29$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTERFACE HOTEL/PMS", "prod": "LOG-MOD-PSR-PMS", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "KDS ILLIMITÉ", "prod": "LOG-MOD-PSR-KDS", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "COMMANDE EN LIGNE PAYFACTO", "prod": "LOG-MOD-PSR-CELPAYF", "notes": "99$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "BORNE DE COMMANDE PAYFACTO", "prod": "LOG-MOD-PSR-BORNEPAYF", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION DE PAIEMENT MONERIS", "prod": "LOG-MOD-PSR-PAYMON", "notes": "MONERIS 99$/M", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION DE PAIEMENT GLOBAL PAYMENT", "prod": "LOG-MOD-PSR-PAYTP", "notes": "GLOBAL 99$/M", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 1 POS", "prod": "KIT-MOD-VEL-SOLO_PP2", "notes": "149$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 2-4 POS", "prod": "KIT-MOD-VEL-FOR2-4", "notes": "249$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 5-10 POS", "prod": "KIT-MOD-VEL-FOR5-10", "notes": "299$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 11-20 POS", "prod": "KIT-MOD-VEL-FOR11-20", "notes": "399$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT 20 +", "prod": "KIT-MOD-VEL-FOR20+", "notes": "PRIX SUR DEMANDE", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "LICENCE VELPAY", "prod": "LOG-MOD-VEL-INTPAY", "notes": "0$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "ACCES AUX DONÉES SERVEUR VELOCE", "prod": "NEO-MOD-VEL-NOPOS", "notes": "45$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT PAY/POS ILLIMITÉ", "prod": "KIT-MOD-VEL-BUNFREE", "notes": "0$ POS 2.69% + 0.12$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT LITE PAY/POS 1-4", "prod": "KIT-MOD-VEL-BUNLITE", "notes": "99$ POS 2.39% + 0.10$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT PLUS PAY/POS 5-10", "prod": "KIT-MOD-VEL-BUNPLUS", "notes": "199$ POS 2.29% + 0.08$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT GROWTH PAY/POS 11+", "prod": "KIT-MOD-VEL-BUNGROWTH", "notes": "299$ POS 2.19% + 0.07$", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "FORFAIT SUR MESURE (MULTI-SITES)", "prod": "KIT-MOD-VEL-MULTISITES", "notes": "IL FAUT AJOUTER LES POS LOG-MOD-VEL-SATEL", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "", "prod": "LOG-MOD-VEL-SATEL", "notes": "", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION CARTE CADEAU/FIDELITÉ FREEBEES", "prod": "LOG-MOD-VEL-CCFFREEBEES", "notes": "0$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION CARTE CADEAU/FIDELITÉ", "prod": "LOG-MOD-VEL-CCF_AP", "notes": "29$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INERTFACE HOTEL/PMS", "prod": "LOG-MOD-VEL-PMS", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "KDS ILLIMITÉ", "prod": "LOG-MOD-VEL-KDS", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "COMMANDE EN LIGNE PAYFACTO", "prod": "LOG-MOD-VEL-CELPAYF", "notes": "99$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "BORNE DE COMMANDE PAYFACTO", "prod": "LOG-MOD-VEL-BORNEPAYF", "notes": "75$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "ACCÈS API VELOCE", "prod": "LOG-MOD-VEL-API", "notes": "19$/MOIS", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION DE PAIEMENT MONERIS", "prod": "LOG-MOD-VEL-PAYMON", "notes": "MONERIS 99$/M", "extra": ""}, {"sheet": "OLD SAAS MD-VELOCE", "desc": "INTÉGRATION DE PAIEMENT GLOBAL PAYMENT", "prod": "LOG-MOD-VEL-PAYTP", "notes": "GLOBAL 99$/M", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION SERVEUR", "prod": "TEM-PRE-NEO-IC/SER", "notes": "230$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION SER-POS", "prod": "TEM-PRE-NEO-IC/SERPOS", "notes": "230$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION POS", "prod": "TEM-PRE-NEO-IC/POS", "notes": "130$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION BORNE", "prod": "TEM-PRE-NEO-IC/BORNE", "notes": "230$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION TABLETTE", "prod": "TEM-PRE-NEO-IC/TABLETTE", "notes": "60$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION IMPRIMANTE", "prod": "TEM-PRE-NEO-IC/IMP", "notes": "60$ n'inclus pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PRÉPARATION DU SITE ET CONFIGURATION MEVWEB", "prod": "TEM-PRE-NEO-MEVWEB", "notes": "120$ fixe n'inclut pas le déplacement", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FRAIS DE DÉPLACEMENT", "prod": "TEM-DEP-POS-DEPLACE", "notes": "METTRE LE MONTANT SELON LE TEMPS GOOGLE MAP", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FRAIS D'HERBERGEMENT", "prod": "TEM-CNT-POS-HEB_REP", "notes": "METTRE LE MONTANT SELON LE CALCUL DU GUIDE DE PRODUIT", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FRAIS BILLET D'AVION", "prod": "TEM-CNT-POS-AVION", "notes": "METTRE LE MONTANT SELON LE PRIX DU BILLET D'AVION", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PROGRAMMATION DE MENU", "prod": "TEM-PRO-NEO-PROGMENU", "notes": "MENU STANDARD", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PROGRAMMATION DE MENU DEJ OU PIZZ", "prod": "TEM-PRO-NEO-MENUPIZ", "notes": "MENU DÉJEUNER/PIZZA OU TRÈS GROS MENU", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "COPIE DE MENU", "prod": "TEM-PRO-NEO-COPIEMENU", "notes": "OBLIGATOIRE", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FORMATION DE BASE STANDARD", "prod": "TEM-FOR-NEO-FOR_4H", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION/CONFIGURATION PAIEMENT PAYFACTO", "prod": "TEM-PRE-NEO-IC/PAY", "notes": "METTRE DANS TOUT LES SOUMISSIONS QUAND ON INTEGRE LE PAY", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PAX A35", "prod": "TER-TPV-PAX-P_A35", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PAX A80", "prod": "TER-TPV-PAX-P_A80", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PAX A920 PRO", "prod": "TER-TPV-PAX-P_A920PRO", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PAX IM30", "prod": "TER-TPV-PAX-P_IM30", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "SUPPORT AUX OPÉRATIONS JOUR SEMAINE", "prod": "TEM-LIV-NEO-LIVE", "notes": "LUNDI AU VENDREDI DE JOUR", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI", "prod": "TEM-LIV-NEO-LIVE_SSEM", "notes": "SOIR DU LUNDI AU JEUDI", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND", "prod": "TEM-LIV-NEO-LIVE_WE", "notes": "VENDREDI SOIR ET WEEKEND", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION", "prod": "TEM-PRE-NEO-CONFIG", "notes": "120$ pour charger des frais fixe divers selon le nombre d'heure", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION CONFIGURATION MD ANALYTIQUE", "prod": "TEM-PRE-NEO-IC/ANALYTIQUE", "notes": "120$ POUR SETUP", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION UEAT OU ISHOP", "prod": "TEM-PRE-NEO-IC/CLIGNE", "notes": "120$", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FRAIS CONFIGURATION ISHOP", "prod": "TEM-CNT-POS-INT-ISF", "notes": "500$ FRAIS DE SETUP DE LA PLATEFORME", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "CONFIGURATION INTERFACE HOTEL", "prod": "TEM-PRE-NEO-IC/INTHOTEL", "notes": "120", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION UEAT HUB", "prod": "TEM-PRE-NEO-IC/UEATHUB", "notes": "120$ POUR UBEREAT/SKIP/DOORDASH", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION FREEBEES", "prod": "TEM-PRE-NEO-IC/FREEBEES", "notes": "120$ fournir code", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION DATACANDY", "prod": "TEM-PRE-NEO-IC/DATACANDY", "notes": "120$ fournir code", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION WISK", "prod": "TEM-PRE-NEO-C/WISK", "notes": "120", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION PIECEMEAL", "prod": "TEM-PRE-NEO-C/PIECEMEAL", "notes": "120", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION LIBRO", "prod": "TEM-PRE-NEO-C_LIBRO", "notes": "120 Founir code", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION SEEMYAPPS", "prod": "TEM-PRE-NEO-IC/SEEMYAPPS", "notes": "120$ LE CLIENT DOIT AVOIR LE EFT ENRICHIE", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION PAIEMENT (GLOBAL/MONERIS)", "prod": "TEM-PRE-NEO-PAY", "notes": "", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION TACIT", "prod": "TEM-PRE-NEO-IC/TACIT", "notes": "120", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INTÉGRATION GIVEX", "prod": "TEM-PRE-NEO-IC/GIVEX", "notes": "120", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "BANQUE D'HEURE", "prod": "TEM-CNT-NEO-BANQUEH", "notes": "120$/H", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "PROGRAMMATION À L'HEURE", "prod": "TEM-PRO-NEO-PROG_H", "notes": "PROGRAMMATION  À L'HEURE", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "FORMATION À L'HEURE", "prod": "TEM-PRO-POS-FORMAT", "notes": "FORMATION À L'HEURE", "extra": ""}, {"sheet": "MAIN D'OEUVRE", "desc": "INSTALLATION/CONFIGURATION À L'HEURE", "prod": "TEM-PRO-NEO-INST_H", "notes": "INSTALLATION/CONFIGURATION À L'HEURE", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION LIBRO", "prod": "TEM-PRE-NEO-C_LIBRO", "notes": "115$/hr Founir code", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION UEAT OU ISHOP", "prod": "TEM-PRE-NEO-IC/CLIGNE", "notes": "230$", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "FRAIS CONFIGURATION ISHOP", "prod": "TEM-CNT-POS-INT-ISF", "notes": "500$ FRAIS DE SETUP DE LA PLATEFORME", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "CONFIGURATION INTERFACE HOTEL", "prod": "TEM-PRE-NEO-IC/INTHOTEL", "notes": "115", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION PAIEMENT QR PAYFACTO", "prod": "TEM-PRE-NEO-IC/QRPAY", "notes": "230", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION UEAT HUB", "prod": "TEM-PRE-NEO-IC/UEATHUB", "notes": "115$ POUR UBEREAT/SKIP/DOORDASH", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INSTALLATION CONFIGURATION OSPERIA MEMO", "prod": "TEM-PRE-NEO-IC/GIRAFMESS", "notes": "115", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION FREEBEES", "prod": "TEM-PRE-NEO-IC/FREEBEES", "notes": "230 fournir code", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION DATACANDY", "prod": "TEM-PRE-NEO-IC/DATACANDY", "notes": "230 fournir code", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION WISK", "prod": "TEM-PRE-NEO-C/WISK", "notes": "115", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION PIECEMEAL", "prod": "TEM-PRE-NEO-C/PIECEMEAL", "notes": "115", "extra": ""}, {"sheet": "SALES ADMIN", "desc": "INTÉGRATION SEEMYAPPS", "prod": "TEM-PRE-NEO-IC/SEEMYAPPS", "notes": "230$ LE CLIENT DOIT AVOIR LE EFT ENRICHIE", "extra": ""}, {"sheet": "FOURNITURES", "desc": "FRAIS DE LIVRAISON", "prod": "TEM-LIV-POS-LIVRAISO", "notes": "FRAIS EN SUS", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier imprimante cuisine/bar Epson/Star 1X COPIE", "prod": "FOU-PAP-BON-BOND3X3C", "notes": "IMPRIMANTE EPSON TMU220 ET STAR 742", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier imprimante cuisine/bar Epson/Star 2X COPIE", "prod": "FOU-PAP-BON-3X3/2-C", "notes": "IMPRIMANTE EPSON TMU220 ET STAR 742", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier imprimante cuisine Star 3X COPIE", "prod": "FOU-PAP-RRD-3X33PC", "notes": "SEULEMENT IMPRIMANTE STAR 742", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Ruban d'Encre pour EPSON noir et rouge", "prod": "FOU-RUB-EPS-ERC34R/N", "notes": "COMMANDE MINIMUM 6 UNITÉS", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Ruban d'Encre pour EPSON violet", "prod": "FOU-RUB-EPS-ERC34V", "notes": "COMMANDE MINIMUM 6 UNITÉS", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Ruban d'Encre pour STAR noir et rouge", "prod": "FOU-RUB-STA-30980721", "notes": "COMMANDE MINIMUM 6 UNITÉS", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier imprimante thermal", "prod": "FOU-PAP-BSP-TH3 1/8C", "notes": "MODÈLE EPSON TM-88 ET T20", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier thermal terminaux paiement", "prod": "FOU-PAP-BSP-INT60", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier caisse TEC et Casio", "prod": "FOU-PAP-RRD-TH1535C", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Papier caisse SHARP", "prod": "FOU-PAP-BSP-1 3/4", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Etiquette DIGI Linerless", "prod": "FOU-ETQ-DGI-60X55C", "notes": "Pour model ASTRA AC 4000e et  DIGI SM 120", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Etiquette précoupée 12L", "prod": "FOU-ETQ-TOS-SL661BNC", "notes": "Pour model SL-9000 (12 lignes)", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Etiquette précoupée 6L", "prod": "FOU-ETQ-TOS-SL666BNC", "notes": "Pour model SL-9000 (6 lignes)", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Etiquette continue", "prod": "FOU-ETQ-TOS-SL9000C", "notes": "Pour Model Ishida UNI-3, UNI-5, UNI-7 et DIGI SM 100", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Etiquette carton 1 1/4-2 1/4 rouleau de 500", "prod": "FOU-ETQ-STR-DT11/4_21/4", "notes": "Pour Zebra direct thermal", "extra": ""}, {"sheet": "FOURNITURES", "desc": "TIROIR CAISSE APG", "prod": "KIT-TIR-APG-BL1616", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "INSERT POUR TIROIR CAISSE", "prod": "REP-INS-APG-VASARIO", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Bec verseur regulier", "prod": "BER-BOU-BER-SF_", "notes": "01, A 07", "extra": "7 DIFFÉRENTS FORMATS"}, {"sheet": "FOURNITURES", "desc": "Bec verseur high flow", "prod": "BER-BOU-BER-HF_", "notes": "01 A 015", "extra": "15 DIFFÉRENTS FORMATS"}, {"sheet": "FOURNITURES", "desc": "Bec verseur andro ID", "prod": "BAR-BOU-USC-ANDROID", "notes": "1 FORMAT", "extra": "FONCTIONNE AVEC DES PUCES"}, {"sheet": "FOURNITURES", "desc": "Bec verseur ABID", "prod": "BER-BOU-BER-9520", "notes": "1 FORMAT", "extra": "FONCTIONNE AVEC DES PUCES POUR BERG ABID ET FARO"}, {"sheet": "FOURNITURES", "desc": "Bec verseur  Velmix HF", "prod": "VEL-BOU-VEL-HF", "notes": "1 FORMAT", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Bec verseur  Velmix REG ET REG ALBRESH (MÊME PRODUIT)", "prod": "VEL-BOU-VEL-REG", "notes": "1 FORMAT", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Shrink régulier", "prod": "BER-PIE-UNI-SEALSB", "notes": "pqt 1000", "extra": "pour 704 et 1504 BOUCHON A BAGUE BERG"}, {"sheet": "FOURNITURES", "desc": "Sceau de sécurité ABID", "prod": "BAR-PIE-AZB-SHRINK", "notes": "pqt 1000", "extra": "pour Faro et ABID COUCHON A PUCE BERG"}, {"sheet": "FOURNITURES", "desc": "Sceau de sécurité Téquila Patron", "prod": "BER-PIE-BER-7098", "notes": "pqt 125", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Couvert bec verseur", "prod": "BAR-PIE-VEL-CAP", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Tubes et Valves High Flow (pqt20)", "prod": "BER-PIE-BER-5126", "notes": "pqt 20", "extra": "PAILLES BERG"}, {"sheet": "FOURNITURES", "desc": "Nylon de remplacement petit", "prod": "BER-PIE-BER-7281", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Nylon de remplacement régulier", "prod": "BER-PIE-BER-7122", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Nylon de remplacement grand", "prod": "BER-PIE-BER-7282", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Nylon de remplacement très grand", "prod": "BER-PIE-BER-8799", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Nylon de remplacement Tequila Patron", "prod": "BER-PIE-BER-7194", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Pistolet a air chaud", "prod": "BER-PIE-CAN-HEATGUN", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Couvert à bec tête à bière", "prod": "BER-PIE-BER-3540", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Levier de plastique pour tête à bière", "prod": "BER-PIE-BER-3272", "notes": "à l'unité", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Adapteur pour levier à fût (TAB2)", "prod": "BER-PIE-BER-4964", "notes": "à l'unité (MIN 5)", "extra": ""}, {"sheet": "FOURNITURES", "desc": "Carte bande magnétique employé/gérant", "prod": "FOU-CAR-KEY-HYCO2750", "notes": "vendu à l'unité (min 10)", "extra": "( blank server cards)"}, {"sheet": "FOURNITURES", "desc": "PAILLE ET VALVE VELMIX BOUCHON HF", "prod": "BAR-PIE-VEL-PAILLE_HFU", "notes": "VENDUE A L'UNITÉ (MIN 10)", "extra": ""}, {"sheet": "FOURNITURES", "desc": "PAILLE ET VALVE VELMIX BOUCHON REGULIER", "prod": "BAR-PIE-VEL-PAILLE_RU", "notes": "VENDUE A L'UNITÉ (MIN 10)", "extra": ""}, {"sheet": "FOURNITURES", "desc": "BASE DE RECHARGE A920", "prod": "ACC-CRA-PAY-CRADLE1", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "BASE DE RECHARGE MULTIPLE A920", "prod": "ACC-CRA-PAY-CRADLES", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "BASE DE RECHARGE A920 PRO", "prod": "ACC-CRA-PAY-CRADLE1_PRO", "notes": "", "extra": ""}, {"sheet": "FOURNITURES", "desc": "BASE DE RECHARGE MULTIPLE A920 PRO", "prod": "ACC-CRA-PAY-CRADLES_PRO", "notes": "", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "PC SLIM DT166 POUR CVM", "prod": "POS-SLI-DTR-DT166CR", "notes": "", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "BUMPBOX VELOCE", "prod": "ACC-CLA-VEL-BUM_ACH", "notes": "UN PAR ECRAN", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "BRACKET KIT POUR BUMP ET CVM", "prod": "REP-BRK-MTP-KDS", "notes": "", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "7FLEX LCD ARM W/1000N", "prod": "REP-BRK-BLU-FLEXARM", "notes": "", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "ISOBAR 2-OUTLET PROTECTION", "prod": "ACC-BAT-TRP-FILTRE", "notes": "1X PAR ÉCRAN", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "INSTALLATION/CONFIGURATION", "prod": "TEM-PRE-NEO-IC/ECRCUIVEL", "notes": "115$/KDS", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "FORMATION BUMP BOX", "prod": "TEM-FOR-NEO-BUMBOX4H", "notes": "POS", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "PROG MENU POUR CVM", "prod": "TEM-PRO-POS-MENUBUM", "notes": "OBLIGATOIRE POUR CLIENT EXISTANT 500$", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "SUPPORT AUX OPÉRATIONS JOUR SEMAINE", "prod": "TEM-LIV-NEO-LIVE", "notes": "LUNDI AU VENDREDI DE JOUR", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI", "prod": "TEM-LIV-NEO-LIVE_SSEM", "notes": "SOIR DU LUNDI AU JEUDI", "extra": ""}, {"sheet": "KDS VELOCE", "desc": "SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND", "prod": "TEM-LIV-NEO-LIVE_WE", "notes": "VENDREDI SOIR ET WEEKEND", "extra": ""}, {"sheet": "KDS MD", "desc": "PC SLIM DT166 POUR CVM", "prod": "POS-SLI-DTR-DT166CR", "notes": "PRENDRE CE PRODUIT SEULEMENT POUR LES CLIENTS EN PLAN SAAS ILLIMITÉ", "extra": ""}, {"sheet": "KDS MD", "desc": "BUMP BOX 20 TOUCHES", "prod": "ACC-BOX-PSR-CVMBBPS2", "notes": "UN PAR CVM", "extra": ""}, {"sheet": "KDS MD", "desc": "POS AIO TD NEXUS 21,5''", "prod": "POS-AIO-TOU-NEXUS21", "notes": "PAS BESOIN DE PC, ÉCRAN ET BUMP BOX", "extra": ""}, {"sheet": "KDS MD", "desc": "CVM 20 KEY STAINLESS MOUNT", "prod": "ACC-BRK-PSR-BBMOUNT", "notes": "A METTRE SI BUMPBOX SUR COMPTOIR", "extra": ""}, {"sheet": "KDS MD", "desc": "ECRAN VIEW SONIC 22'' LED FULL HD", "prod": "ACC-ECR-VWS-VA2246MH", "notes": "1 par CVM", "extra": ""}, {"sheet": "KDS MD", "desc": "ECRAN TACTILE ELO 22P AVEC PIED", "prod": "ACC-ECR-ELO-ELOPCAP", "notes": "1 par CVM", "extra": ""}, {"sheet": "KDS MD", "desc": "ECRAN TACTILE ELO 22P SANS PIED", "prod": "ACC-ECR-ELO-ELO2202L_SANSPIED", "notes": "1 par CVM", "extra": ""}, {"sheet": "KDS MD", "desc": "BRACKET KIT POUR BUMP ET CVM", "prod": "REP-BRK-MTP-KDS", "notes": "BRACKET POUR ÉCRAN CVM ET BUNPBOX", "extra": ""}, {"sheet": "KDS MD", "desc": "7FLEX LCD ARM W/1000N", "prod": "REP-BRK-BLU-FLEXARM", "notes": "A UTILISER POUR INSTALLATION SUR TABLETTE STANLLESS OU AUTRE TABLETTE", "extra": ""}, {"sheet": "KDS MD", "desc": "CABLE HDMI TO DVI-D", "prod": "WIR-CAB-ACS-DVDHDMI", "notes": "UN PAR CVM", "extra": ""}, {"sheet": "KDS MD", "desc": "POWER BAR TRIPP-LITE 6 PRISES", "prod": "ACC-POW-TRP-POWERBAR", "notes": "SELON LES BESOINS", "extra": ""}, {"sheet": "KDS MD", "desc": "POTEAUX POUR ÉCRAN", "prod": "ACC-AFF-UNT-POLE", "notes": "CHOISIR ENTRE 32'' ET 50'' SELON LA HAUTEUR SI NECESSAIRE", "extra": ""}, {"sheet": "KDS MD", "desc": "ISOBAR 2-OUTLET PROTECTION", "prod": "ACC-BAT-TRP-FILTRE", "notes": "UN PAR POWER BAR", "extra": ""}, {"sheet": "KDS MD", "desc": "INSTALLATION/CONFIGURATION", "prod": "TEM-PRE-NEO-CONFIG", "notes": "120$ PAR BUMP BOX", "extra": ""}, {"sheet": "KDS MD", "desc": "FORMATION BUMP BOX", "prod": "TEM-FOR-NEO-BUMBOX4H", "notes": "4 HEURES OBLIGATOIRE", "extra": ""}, {"sheet": "KDS MD", "desc": "SUPPORT AUX OPÉRATIONS JOUR SEMAINE", "prod": "TEM-LIV-NEO-LIVE", "notes": "LUNDI AU VENDREDI DE JOUR", "extra": ""}, {"sheet": "KDS MD", "desc": "SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI", "prod": "TEM-LIV-NEO-LIVE_SSEM", "notes": "SOIR DU LUNDI AU JEUDI", "extra": ""}, {"sheet": "KDS MD", "desc": "SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND", "prod": "TEM-LIV-NEO-LIVE_WE", "notes": "VENDREDI SOIR ET WEEKEND", "extra": ""}, {"sheet": "KDS MD", "desc": "PROG MENU POUR CVM", "prod": "TEM-PRO-POS-MENUBUM", "notes": "OBLIGATOIRE POUR CLIENT EXISTANT 650$", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE TD QUEST VIII ULTRA 8'' SANS MSR", "prod": "POS-MOB-TOU-QVIII_ULTRA", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE TD QUEST VIII 8'' AVEC MSR", "prod": "POS-MOB-TOU-QVIII_ULTRA_MSR", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "GARANTIE DE 3ANS DOMAGE PHYSIQUE", "prod": "GAR-CNT-TOU-Q3YRNF", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "BASE DE CHARGE 1X", "prod": "ACC-CRA-TOU-CR_VIII", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "BASE DE CHARGE 5X", "prod": "ACC-CHA-TOU-CHARG5T", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "POCHETTE QUEST VIII", "prod": "ACC-ACC-TOU-ETUIE_10B", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE REFURBISH 7''", "prod": "POS-MOB-TOU-Q700_RF", "notes": "PREND AUTORISATION DE MATHIEU", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE REFURBISH 10''", "prod": "POS-MOB-TOU-Q1000_RF", "notes": "PREND AUTORISATION DE MATHIEU", "extra": ""}, {"sheet": "TABLETTE", "desc": "BANDOULIERER A ÉPAULE POUR TABLETTE", "prod": "ACC-ACC-TAB-STRAP", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "TOUCH DYNAMIC, QUEST, ACCESSORY, 2D IMAGER", "prod": "ACC-SCA-TOU-QSCAN", "notes": "BON POUR LES MODÈLES 7'' ET 10''", "extra": ""}, {"sheet": "TABLETTE", "desc": "CRADEL POUR VIELLE TD 8''", "prod": "ACC-CRA-TOU-CRADLE2", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE ZEBRA ET40 8'' WIFI6 SCANNER 1D/2D", "prod": "KIT-MOB-ZEB-ET40_8", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "TABLETTE ZEBRA ET40 10'' WIFI6 SCANNER 1D/2D", "prod": "KIT-MOB-ZEB-ET40_10", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "BASE DE CHARGE ZEBRA 1X", "prod": "KIT-CRA-ZEB-CRADLE1", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "BASE DE CHARGE ZEBRA 4X", "prod": "KIT-CRA-ZEB-CRADLE4", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "POCHETTE TABLETTE 8'' ZEBRA", "prod": "ACC-ACC-MOB-PROTECT_8", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "STAND POUR TABLETTE 8'' ZEBRA", "prod": "KIT-ACC-MTI-BASEPLATE", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "BATTERIE EXTRA POUR ZEBRA ET40", "prod": "ACC-BAT-ZEB-ET40", "notes": "À L'UNITÉ", "extra": ""}, {"sheet": "TABLETTE", "desc": "CHARGEUR 4 BATTERIE ZEBRA", "prod": "KIT-CHA-ZEB-ET5X", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "GARANTIE COMPREHENSIVE 3 ANS", "prod": "GAR-CNT-ZEB-ET40_3", "notes": "", "extra": ""}, {"sheet": "TABLETTE", "desc": "GARANTIE COMPREHENSIVE 5 ANS", "prod": "GAR-CNT-ZEB-ET40_5", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "CONTROLEUR DE FORT VELMIX TRUE-ID", "prod": "BAR-SYS-VEL-TRUEID", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "KIT FARO VELMIX / ACROBAT ANDROID", "prod": "KIT-SYS-TOU-FARO", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "KIT FARO VELMIX / TABLETTE", "prod": "KIT-SYS-MCT-FARO", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "BOUCHONS VELMIX - HIGH FLOW", "prod": "VEL-BOU-VEL-HF", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "CAPUCHON ANTI-MOUCHE POUR VELMIX", "prod": "BAR-PIE-VEL-CAP", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "NYLON DE REMPLACEMENT X-LARGE", "prod": "BER-PIE-BER-8799", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "NYLON DE REMPLACEMENT LARGE", "prod": "BER-PIE-BER-7282", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "NYLON DE REMPLACEMENT PETIT", "prod": "BER-PIE-BER-7281", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "NYLON DE REMPLACEMENT PATRON (TEQUILA)", "prod": "BER-PIE-BER-7194", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "SCEAU DE SÉCURITÉ CHAUFFANT", "prod": "BAR-PIE-AZB-SHRINK", "notes": "pqt 1000", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "PISRTOLET À AIR CHAUD", "prod": "BER-PIE-CAN-HEATGUN", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "VELMIX LC (LINE CONTROL)", "prod": "BAR-PIE-VEL-VELMIXLC", "notes": "CONTRLEUR PRINCIPAL (16 LIGNES)", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "KIT POUR VAN ET TURBINE", "prod": "KIT-PIE-VEL-VANTURBINE", "notes": "INCLUS TOUT LES COMPOSANTES", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "BOITE CONNEXION DÉBIMETRE", "prod": "WIR-CON-INS-DEBIMETRE", "notes": "1 BOITE PAR 8 LIGNES", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "BOITE DE CONNEXION VELMIX", "prod": "WIR-CON-INS-VELMIX", "notes": "1 BOITE PAR 8 LIGNES", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "INSTALLATION VELMIX ALCOOL", "prod": "TEM-PRE-NEO-INSTBEIG", "notes": "275", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "PROGRAMMATION RECETTE COCKTAIL/ALCOOL", "prod": "TEM-PRO-NEO-BERGPROG", "notes": "600", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "FORMATION", "prod": "TEM-FOR-NEO-INBAR4H", "notes": "230 $", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "CAPAGE DE BOUCHON", "prod": "TEM-PRE-NEO-CAP_FARO", "notes": "2,50$/BOUTEILLE", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "SUPPORT AUX OPÉRATIONS SOIR LUNDI AU JEUDI", "prod": "TEM-LIV-NEO-LIVE_SSEM", "notes": "SOIR DU LUNDI AU JEUDI", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "SUPPORT AUX OPÉRATIONS VENDREDI SOIR ET WEEKEND", "prod": "TEM-LIV-NEO-LIVE_WE", "notes": "VENDREDI SOIR ET WEEKEND", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "INSTALLATION CONTROLEUR", "prod": "TEM-PRE-NEO-INSTLC", "notes": "250", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "INSTALLATION BIÈRE EN FÛT", "prod": "TEM-PRE-NEO-INSTLM", "notes": "155$/LIGNE", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "INSTALLATION LIGNE LM", "prod": "TEM-PRE-NEO-INSTVELLM", "notes": "60$/LIGNE", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "PROGRAMMATION BIÈRE EN FÛT", "prod": "TEM-PRO-NEO-BIEREFUT", "notes": "115", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "FORMATION", "prod": "TEM-FOR-NEO-INTFUT", "notes": "115", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "**Advenant le cas où les turbines/valves sont installées a plus de 20 pieds du contrôleur Velmix LC qui se trouve lui aussi à l'extérieur du réfrigérateur, des frais supplémentaires de 4$/pied seront chargés en sus.", "prod": "", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "Le premier 20 pieds est inclus dans le prix de base, la charge sera effectuée seulement pour les pieds supplémentaires.", "prod": "", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "**Important Un fil réseau devra être passé entre à l'exterieur du réfrigérateur et votre commutateur(switch) réseau. De plus il faut aussi prévoir une prise électrique à l'extérieur du frigo.", "prod": "", "notes": "", "extra": ""}, {"sheet": "VELMIX-FARO", "desc": "Ces ajouts devront être planifiés par le client et complétés avant l’installation du système.", "prod": "", "notes": "", "extra": ""}, {"sheet": "BORNE", "desc": "BORNE TOUCH DYNAMIC EDGE 22''", "prod": "KIT-AIO-TOU-EDGE22", "notes": "INCLUS L'IMPRIMANTE FACTURE (EPSON TM-30)", "extra": ""}, {"sheet": "BORNE", "desc": "BASE POUR PLACHER TD EDGE", "prod": "ACC-BRK-TOU-KIOSK4000", "notes": "SEULEMENT SI LA BASE EST INSTALLÉ DIRECTEMENT AU PLANCHER", "extra": ""}, {"sheet": "BORNE", "desc": "CARTE SANS FIL (WIFI) POUR TD EDGE", "prod": "ACC-CAR-TOU-M2KIT2", "notes": "", "extra": ""}, {"sheet": "BORNE", "desc": "LECTEUR CODE BARRE POUR TD EDGE", "prod": "ACC-LEC-TOU-CM5680WA", "notes": "", "extra": ""}, {"sheet": "BORNE", "desc": "BRACKET PINPAD UNIVERSEL", "prod": "ACC-BRK-TOU-PAX_S300", "notes": "EST COMPATIBLE AVEC LE IM-30", "extra": ""}, {"sheet": "BORNE", "desc": "VOIR LA SECTION MAIN D'ŒUVRE", "prod": "", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "KIT SERVEUR RAZOR I5 16GB 512GB", "prod": "KIT-TOU-RAZ-RPC5650_STH", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "POS AIO TOUCH DYNAMIC NEXUS", "prod": "POS-AIO-TOU-NX1560", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "TABLETTE TD QUEST VIII", "prod": "KIT-MOB-TOU-Q_VIIISTHUB", "notes": "COMPRENDS GARANTO COMPRÉHENSIVE 3 ANS", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "CHARGEUR 5 TABLETTES", "prod": "ACC-CHA-TOU-CHARG5T", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "PC ADMIN STANDARD", "prod": "KIT-DMI-HPK-PCADMIN", "notes": "KIT COMPRENDS UN ÉCRANS 22'' DE BUREAU", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "PC ADMIN POUR REMPLACEMENT", "prod": "KIT-DMI-HPK-PCADMIN_R", "notes": "KIT SANS ÉCRAN 22'' DE BUREAU", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "PC ADMIN COMPTABLE", "prod": "KIT-DMI-HPK-PCCOMPTABLE", "notes": "KIT COMPRENDS UN ÉCRANS 22'' DE BUREAU", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "MINI PC DT166CR", "prod": "POS-SLI-DTR-DT166CR", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "BUMPBOX 20 KEY CVM", "prod": "ACC-BOX-PSR-CVMBBPS2", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "BRAS AMOVIBLE POUR BRACKET", "prod": "REP-BRK-BLU-FLEXARM", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "BRACKET POUR CVM (KDS)", "prod": "REP-BRK-MTP-KDSKIT", "notes": "BRACKET COMPREND, ESPACE POUR PC, BUMBOX ET ÉCRAN", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "IMPRIMANTE ÉTIQUETTE ZEBRA", "prod": "ACC-IMP-ZEB-ZD421", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "KIT LIBRO", "prod": "KIT-DMI-HPK-LIBRO", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "KIT MEV", "prod": "KIT-MEV-IBM-MEV2", "notes": "COMPRENDS CABLE DB9", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "CLAVIER MEV", "prod": "ACC-CLA-IBM-CLAMEV", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "", "prod": "IMPRIMANTE CUISINE", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "IMPRIMANTE TMU220 RÉSEAU", "prod": "KIT-IMP-EPS-TMU220BE", "notes": "COMPREND COMPOSANTES", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "", "prod": "IMPRIMANTE FACTURE", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "IMPRIMANTE CITIZEN S751 SÉRIE", "prod": "KIT-IMP-CTZ-S751", "notes": "COMPREND COMPOSANTES", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "ÉTUIT POUR TABLETTE", "prod": "ACC-ACC-TOU-ETUIE_10B", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "CARTE GÉRANT", "prod": "FOU-CAR-KEY-HYCO2750", "notes": "", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "SAAS MD ST-HUBERT", "prod": "KIT-MOD-PSR-STH", "notes": "272$/MOIS", "extra": ""}, {"sheet": "ST-HUBERT", "desc": "INSTALLATION/CONFIG ST-HUBERT", "prod": "TEM-PRO-NEO-INST_H_STH", "notes": "100$/HR", "extra": ""}, {"sheet": "BENNY 2", "desc": "SERVEUR TOSHIBA TCX300 E71, INTEL CORE I3 9100TE, 16GB, 256GB SSD, WIN 10 IOT", "prod": "SER-TOU-TOS-TCX300", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "SAMSUNG EVO PLUS 500 GB NVMe M.2 SSD", "prod": "REP-DIS-SAM-SSD500GB", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "BATTERIE SMART500RT1U", "prod": "ACC-BAT-TRP-500RT1U", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "BARRE DE PUISSANCE TRIPP-LITE 12 PRISES", "prod": "ACC-POW-TRP-BARRE_12", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "TABLETTE VENTILÉ 1U 10P", "prod": "WIR-BRK-ADD-TAB1U_V", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "CABLE RJ45 1 PIED BLEU", "prod": "WIR-CAB-ACS-1FTRJ45B", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Câble RJ45 3 pieds noir", "prod": "WIR-CAB-ACS-3FTRJ45N", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Câble RJ45 6 pieds gris", "prod": "WIR-CAB-ACS-6FTRJ45B", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Câble RJ45 15 pieds", "prod": "WIR-CAB-ACS-15RJ45N", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "CONNECTEUR RJ45F/DB09F (WIRED) TERMINER", "prod": "WIR-CON-CBK-RJ4509F", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "CONNECTEUR RJ45F/DB25M (WIRED) TERMINER", "prod": "WIR-CON-CBK-RJ4525M", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION RACK RÉSEAU", "prod": "TEM-PRE-NEO-IC/RACKRES", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION SERVEUR", "prod": "TEM-PRE-NEO-IC/SERVEUR", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "POS TD ACROBAT J6412", "prod": "KIT-AIO-TOU-ACROJ6412", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION POS", "prod": "TEM-PRE-NEO-IC/POS", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "TIROIR CAISSE APG", "prod": "KIT-TIR-APG-BL1616", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "IMPRIMANTE CITIZEN CT-S601 SÉRIE", "prod": "KIT-IMP-CTZ-S601", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "IMPRIMANTE EPSON TM-T88 RÉSEAU", "prod": "ACC-IMP-EPS-TM88R", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "BUZZER EXTERNE POUR IMPRIMANTE EPSON TM88/T20", "prod": "ACC-PIE-EPS-BUZZER", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "SCANNER ZEBRA DS2208, 2D, USB", "prod": "ACC-LEC-ZEB-DS2208", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION SCANNER", "prod": "TEM-PRE-NEO-IC/SCAN", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "MINI ORDINATEUR DT166CR WIN10 64GB", "prod": "POS-SLI-DTR-DT166CR", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Câble RJ45 6 pieds rouge", "prod": "WIR-CAB-ACS-6FTRJ45R", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "CLAVIER DE CUISINE POUR ECRAN VELOCE", "prod": "ACC-CLA-VEL-BUM_ACH", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "ECRAN VIEW SONIC 22'' VA2246MH LED, HD, 1080P", "prod": "ACC-ECR-VWS-VA2246MH", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION ECRAN CUISINE VELOCE", "prod": "TEM-PRE-NEO-IC/ECRCUIVEL", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "MINI ORDINATEUR DT166CR WIN10 64GB", "prod": "POS-SLI-DTR-DT166CR", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Câble RJ45 6 pieds noir", "prod": "WIR-CAB-ACS-6FTRJ45N", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "ÉCRAN TACTILE GESTIPOS SCP 15P", "prod": "ACC-ECR-GES-SCP15", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "Batterie UPS TRIPP-LITE 550VA AVR USB", "prod": "ACC-BAT-TRP-550VAUSB", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "SUPPORT ARTICULÉ PEERLESS, SMARTMOUNT VESA, 75 AND 100MM", "prod": "ACC-BRK-PEE-SAL724", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION ECRAN CLONE VELOCE", "prod": "TEM-PRE-NEO-IC/ECRCLONE", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "KIT FORTINET BENNY&CO", "prod": "KIT-HUB-FOR-BENNY", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "GESTION FORTINET (ANNUEL)", "prod": "TEM-CNT-NEO-FORTIMAN", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION/CONFIGURATION", "prod": "TEM-PRE-NEO-CONFIG", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "VELOCE PLAN BENNY PAIEMENT ET LOGICIEL ILLIMITÉ 209$/MOIS", "prod": "LOG-MOD-VEL-UN_BENNY", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "VELOCE- CLE D'ACTIVATION VIRTUELLE", "prod": "LOG-LIC-VEL-CLEVEL_V", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "LOGICIEL POINT DE VENTE", "prod": "LOG-MOD-VEL-SATEL", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "LICENCE VELPAY VELOCE", "prod": "LOG-MOD-VEL-INTPAY", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION /CONFIGURATION PAYFACTO", "prod": "TEM-PRE-NEO-IC/PAYFACTO", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "INSTALLATION PINPAD", "prod": "TEM-CNT-PAY-STP", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "SUPPORT INFORMATIQUE INCLUS 1 AN", "prod": "TEM-GAR-NEO-INFO", "notes": "", "extra": ""}, {"sheet": "BENNY 2", "desc": "", "prod": "", "notes": "", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "KIT SERVEUR RAZOR 16GB 500GB", "prod": "KIT-TOU-RAZ-RPC3650", "notes": "15% D'ESCOMPTES", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LICENCE MICROSOFT OFFICE", "prod": "LOG-LIC-MIC-OFFICE", "notes": "PAS D'ESCOMPTE", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "KIT TOUCH DYNAMIC ACROBAT J6412", "prod": "KIT-AIO-TOU-ACROJ6412", "notes": "15% D'ESCOMPTES", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LECTEUR DE CARTE ACROBAT", "prod": "ACC-LEC-TOU-ACROBAT", "notes": "15% D'ESCOMPTES", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "IMPRIMANTE CITIZEN S751 SÉRIE", "prod": "KIT-IMP-CTZ-S751", "notes": "15% D'ESCOMPTES", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "TABLETTE TD QUEST VIII 8'' SANS MSR", "prod": "POS-MOB-TOU-QVIII", "notes": "15% D\"ESCOMPTES", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "MISE A JOUR SAAS MEVWEB", "prod": "LOG-MOD-PSR-MTYMDUP", "notes": "", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LICENCE MAITRE'D 1ER POS", "prod": "KIT-MOD-PSR-MTYMD", "notes": "115$/MOIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "AJOUT POS 2 À 5  MAITRE'D", "prod": "LOG-MOD-PSR-POS_MTY", "notes": "25$/MOIS/POS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "AJOUT POS 6 ET +", "prod": "LOG-MOD-PSR-POS_MTY6+", "notes": "SANS FRAIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "MODULE INVENTAIRE MAITRE'D", "prod": "LOG-MOD-PSR-INV_MTY", "notes": "15$/MOIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LICENCE KDS ILLIMITÉ MAITRE'D", "prod": "LOG-MOD-PSR-KDS_MTY", "notes": "21$/MOIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "MISE A JOUR SAAS MEVWEB", "prod": "LOG-MOD-VEL-MTYVELUP", "notes": "", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LICENCE VELOCE 1ER POS", "prod": "KIT-MOD-VEL-MTYVEL", "notes": "115$/MOIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "AJOUT POS 2 À 5 VELOCE", "prod": "LOG-MOD-VEL-POS_MTY", "notes": "25$/MOIS/POS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "AJOUT POS 6 ET +", "prod": "LOG-MOD-VEL-POS_MTY6+", "notes": "SANS FRAIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "MODULE INVENTAIRE VELOCE", "prod": "LOG-MOD-VEL-INV_MTY", "notes": "15$/MOIS", "extra": ""}, {"sheet": "MTY SAT (2)", "desc": "LICENCE KDS ILLIMITÉ VELOCE", "prod": "LOG-MOD-VEL-KDS_MTY", "notes": "21$/MOIS", "extra": ""}, {"sheet": "ADAPTIVE NETWORK", "desc": "ROUTER BUSINESS CONNECT 30MBPS", "prod": "KIT-HUB-ADA-BUS30/M", "notes": "150$/MOIS COMPRENDS, ROUTER, MODEM LTE ET PLAN DE DONNÉES 3GB", "extra": ""}, {"sheet": "ADAPTIVE NETWORK", "desc": "INSTALLATION/CONFIGURATION ROUTER ADAPTIVE", "prod": "TEM-PRE-NEO-IC/ADAPTIVE", "notes": "230$ + DÉPLACEMENT SI VENDU SEUL", "extra": ""}, {"sheet": "UNIFI", "desc": "AP UNIFI U6 LITE", "prod": "ACC-HUB-UNI-U6_LITE", "notes": "AP INTÉRIEUR", "extra": ""}, {"sheet": "UNIFI", "desc": "AP UNIFI U6 PRO", "prod": "ACC-HUB-UNI-U6_PRO", "notes": "AP INTÉRIEUR/EXTÉRIEUR", "extra": ""}, {"sheet": "UNIFI", "desc": "INJECTEUR POE", "prod": "ACC-HUB-UNI-POEADAPTER", "notes": "1X PAR AP", "extra": ""}, {"sheet": "UNIFI", "desc": "CABLE RJ45 6 PIEDS", "prod": "WIR-CAB-ACS-6FTRJ45B", "notes": "1X AP", "extra": ""}, {"sheet": "UNIFI", "desc": "ROUTEUR MIKROTIK", "prod": "ACC-HUB-MIK-RB759GR3", "notes": "INCLUS LA POSSIBILITÉ D'ADRESSE IP FIXE (4PORTS)", "extra": ""}, {"sheet": "UNIFI", "desc": "INSTALLATION/CONFIGURATION ROUTER MIKROTIK", "prod": "TEM-PRE-NEO-IC/MIKROTIK", "notes": "230$", "extra": ""}, {"sheet": "UNIFI", "desc": "INSTALLATION/CONFIGURATION FORTI AP 1ER", "prod": "TEM-PRE-NEO-IC/FORTAP", "notes": "115$/ POUR LE 1ER AP + DÉPLACEMENT SI PAS NOUVELLE INSTALLATION", "extra": ""}, {"sheet": "UNIFI", "desc": "INSTALLATION/CONFIGURATION FORTI AP 2 ET +", "prod": "TEM-PRE-NEO-IC/FORTAP2", "notes": "60$/AP POUR LE DEUXIÈME ET +", "extra": ""}, {"sheet": "PAGETTE", "desc": "LRS T9550LCK PAGER 1-5", "prod": "ACC-PAG-LRS-KSTAFF5", "notes": "KIT DEPART-CONSOLE JUSQU’À 20 PAG-5 PAGETTES-CHARGEUR", "extra": ""}, {"sheet": "PAGETTE", "desc": "LRS (5PACK)SP4 STAFF/SERVER PGRS 6-10", "prod": "ACC-PAG-LRS-ADST610", "notes": "AJOUT 5 PAGETTES 6 A 10 INCLUANT CHARGEUR", "extra": ""}, {"sheet": "PAGETTE", "desc": "TRANSMETTEUR TX-9560EZ", "prod": "ACC-PAG-LRS-TX9560EZ", "notes": "2e console si client veut une 2e pour caller les meme pagettes", "extra": ""}, {"sheet": "PAGETTE", "desc": "RECHARGEABLE STAFF/SERVER PGR", "prod": "ACC-PAG-LRS-RX_SP4", "notes": "PAGETTE A L'UNITÉ", "extra": ""}, {"sheet": "PAGETTE", "desc": "CLIPS POUR PAGETTE (comm.minimum12)", "prod": "REP-PIE-LRS-K20014", "notes": "CLIP POUR PAGETTE, (ils sont inclus avec la pagette a l'achat.)", "extra": ""}, {"sheet": "PAGETTE", "desc": "CHARGEUR 1-10 POUR PAGER LRS", "prod": "ACC-PAG-LRS-CH-R9_10", "notes": "BASE DE RECHARGE DE REMPLACEMENT", "extra": ""}];
+let activeFilter = null;
+
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(function(el) { el.style.display = 'none'; });
+  document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.style.display = 'block';
+  var btn = document.getElementById('btn_' + id);
+  if (btn) { btn.classList.add('active'); btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+}
+
+function handleSearch(val) {
+  document.getElementById('btnClear').classList.toggle('visible', val.length > 0);
+  if (val.trim().length >= 2) { openModal(val.trim()); }
+  else { closeModal(); }
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('btnClear').classList.remove('visible');
+  activeFilter = null;
+  closeModal();
+}
+
+function openModal(query) {
+  document.getElementById('modalOverlay').classList.add('open');
+  renderResults(query, activeFilter);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function hlText(text, query) {
+  if (!text || !query) return escHtml(text || '');
+  var safe = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return escHtml(text).replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
+}
+
+function setFilter(sheet, query) {
+  activeFilter = sheet;
+  renderResults(query, sheet);
+}
+
+function gotoTab(tabId) {
+  closeModal();
+  clearSearch();
+  showTab(tabId);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function renderResults(query, filterSheet) {
+  var q = query.toLowerCase();
+  var allMatches = INDEX.filter(function(r) {
+    return [r.desc, r.prod, r.notes, r.extra].join(' ').toLowerCase().indexOf(q) >= 0;
+  });
+  var sheetSet = [];
+  allMatches.forEach(function(r) { if (sheetSet.indexOf(r.sheet) < 0) sheetSet.push(r.sheet); });
+  sheetSet.sort();
+  var matches = filterSheet ? allMatches.filter(function(r) { return r.sheet === filterSheet; }) : allMatches;
+
+  var countEl = document.getElementById('resultCount');
+  countEl.textContent = matches.length + (matches.length === 1 ? ' r\u00e9sultat' : ' r\u00e9sultats');
+  countEl.className = 'result-count' + (matches.length === 0 ? ' none' : '');
+  document.getElementById('modalTitle').textContent = 'R\u00e9sultats pour \u00ab\u00a0' + query + '\u00a0\u00bb';
+
+  var chipsHtml = '<button class="filter-chip ' + (!filterSheet ? 'active' : '') + '" onclick="setFilter(null,\'' + escHtml(query) + '\')">Tous les onglets (' + allMatches.length + ')</button>';
+  sheetSet.forEach(function(sheet) {
+    var cnt = allMatches.filter(function(r) { return r.sheet === sheet; }).length;
+    var safe = sheet.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    chipsHtml += '<button class="filter-chip ' + (filterSheet === sheet ? 'active' : '') + '" onclick="setFilter(\'' + safe + '\',\'' + escHtml(query) + '\')">' + escHtml(sheet) + ' (' + cnt + ')</button>';
+  });
+  document.getElementById('modalFilters').innerHTML = chipsHtml;
+
+  if (matches.length === 0) {
+    document.getElementById('modalBody').innerHTML = '<div class="no-results"><span class="icon">\ud83d\udd0d</span>Aucun produit trouv\u00e9 pour <strong>' + escHtml(query) + '</strong><br><span style="font-size:12px;margin-top:6px;display:block">Essayez un autre mot-cl\u00e9.</span></div>';
+    return;
+  }
+
+  var grouped = {};
+  matches.forEach(function(r) { if (!grouped[r.sheet]) grouped[r.sheet] = []; grouped[r.sheet].push(r); });
+
+  var bodyHtml = '';
+  Object.keys(grouped).forEach(function(sheet) {
+    var rows = grouped[sheet];
+    var sheetId = 'tab_' + sheet.replace(/[^a-zA-Z0-9]/g, '_');
+    bodyHtml += '<div><div class="result-group-title">\ud83d\udcc2 ' + escHtml(sheet) + '</div>';
+    rows.forEach(function(r) {
+      var extraHtml = (r.extra && r.extra.indexOf('http') === 0) ? ' <a href="' + escHtml(r.extra) + '" target="_blank" class="link">\ud83d\udd17</a>' : hlText(r.extra, query);
+      bodyHtml += '<div class="result-row">'
+        + '<div class="res-desc">' + hlText(r.desc, query) + '<br><button class="btn-goto" onclick="gotoTab(\'' + sheetId + '\')">\u2192 Aller \u00e0 l\'onglet ' + escHtml(sheet) + '</button></div>'
+        + '<div class="res-prod">' + hlText(r.prod, query) + '</div>'
+        + '<div class="res-notes">' + hlText(r.notes, query) + extraHtml + '</div>'
+        + '</div>';
+    });
+    bodyHtml += '</div>';
+  });
+  document.getElementById('modalBody').innerHTML = bodyHtml;
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
